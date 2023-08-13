@@ -3,6 +3,7 @@
 #define EXIT_SUCCESS 0
 #define SHELL_HEADER "SHELL -> "
 #define INTRPT_CODE  -20
+#define BUILTINS_MAX_SIZE 32
 #define ENV_MAX 255
 /* #define SEQ_START_BYTE '\x1b' for handling keys.. */
 
@@ -52,6 +53,7 @@ typedef enum env_action_e
 	CLEAR_ENV
 } env_action_t;
 
+
 typedef enum path_action_e
 {
 	PRINT_PATH,
@@ -77,6 +79,11 @@ typedef struct input_buffer_s
 	int size;
 } input_buffer_t;
 
+typedef struct builtin_func_s {
+	char name[32];
+	void (*f)();
+} builtin_func_t;
+
 typedef struct shell_state_s {
 	int latest_status;
 	int line_idx;
@@ -100,7 +107,6 @@ char  **get_tokenized_path();
 void  _exec();
 char  *get_value(const map_t *m, const char *key);
 void  set_value(map_t *m, const char *key, const char *value);
-void  loginfo(const char *s);
 map_t *create_map(size_t size);
 void  distroy_map(map_t *m);
 void  append_entry(map_t *m, const char *entry, const char *key, const char *value);

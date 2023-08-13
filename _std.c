@@ -66,3 +66,57 @@ int _getline(char **buff, size_t *size, int fd)
 
 	return it;
 }
+
+void *shell_atoi(char *ascii)
+{
+	int *r;
+	int it;
+	int unit;
+	int tmp;
+
+	if (ascii == NULL)
+		return NULL;
+
+	r = malloc(sizeof(int)); 
+	tmp  = 0;
+	unit = 1;
+	it   = (strlen(ascii) - 1);
+
+	while (it >= 0)
+	{
+		if (it == 0)
+		{
+			if (ascii[it] == '-')
+			{
+				tmp *= (-1);
+				*r = tmp;
+				return (r);
+			}
+
+
+			if (ascii[it] >= '0' && ascii[it] <= '9')
+			{
+				tmp += ((int)(ascii[it] - '0')) * unit;
+				*r = tmp;
+				return (r);
+			}
+
+			free(r);
+			return (NULL);
+		}
+
+		if (ascii[it] >= '0' && ascii[it] <= '9')
+		{
+			tmp += ((int)(ascii[it] - '0')) * unit;
+			unit *= 10;
+			it--;
+			continue;
+		}
+
+		free(r);
+		return NULL;
+	}
+
+	*r = tmp;
+	return (r);
+}

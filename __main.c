@@ -1,4 +1,4 @@
-#include "simple_shell.h"
+#include "_simple_shell.h"
 
 /**
 * main - entry point.
@@ -6,6 +6,8 @@
 */
 int main()
 {
-	printf("Hello, world\n");
-	return (0);
+	init_environment();
+	start_shell();
+	uinit_environment();
+	return (get_status());
 }

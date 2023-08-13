@@ -23,27 +23,6 @@ void print_2d(char **Array)
 	}
 }
 
-
-void loginfo(const char *s)
-{
-	printf("[*] %s\n", s);
-}
-
-void init_environment()
-{
-	init_builtins();
-	init_env_manager();
-	init_path_manager();
-	init_state_manager();
-}
-	
-void uinit_environment()
-{
-	release_path();
-	release_env_();
-	reader(FREE);
-}
-
 void start_shell()
 {
 	int nread = 0;
