@@ -83,12 +83,14 @@ def execute_mode(MODE: str):
 def main():
     if ARGC < 2:
         print()
+
         print(f"usage: { CURRENT_SCRIPT } test | build | debug")
         print(f"----------------------------------------------")
         print(f"    test: run the compiled project.")
         print(f"    build: build the project.")
         print(f"    debug: debug the program using valgrind.")
         print()
+
         exit(1)
 
     MODES = [
