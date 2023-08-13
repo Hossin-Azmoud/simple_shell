@@ -1,13 +1,13 @@
 #!/bin/python3
 from os import system
 from sys import argv
-
+BINARY_NAME = "hsh"
 ARGC = len(argv)
 CURRENT_SCRIPT = argv[0]
-PROGRAM        = "./a.out run"
-BUILD_COMMAND  = "gcc -Wall -g -Werror -Wextra -pedantic -std=gnu89 *.c"
-DEBUG_COMMAND  = "valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./a.out run"
-PIPE_COMMAND   = "valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all cat input | ./a.out run"
+PROGRAM        = f"./{ BINARY_NAME }"
+BUILD_COMMAND  = f"gcc -Wall -g -Werror -Wextra -pedantic -std=gnu89 *.c -o { BINARY_NAME }"
+DEBUG_COMMAND  = f"valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./{ BINARY_NAME }"
+PIPE_COMMAND   = f"valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all cat input | ./{ BINARY_NAME }"
 BUILD_MODE, TEST_MODE, DUMP_MODE, RUN_MODE, DEBUG_MODE, PIPE_MODE = "BUILD", "TEST", "DUMP", "RUN", "DEBUG", "PIPE"
 
 def push_all(xs, ys):    

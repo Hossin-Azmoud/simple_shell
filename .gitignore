@@ -1,0 +1,10 @@
+# binaries
+*.out
+hsh
+
+# tests
+/tests
+test.c
+test*
+# input files
+input
