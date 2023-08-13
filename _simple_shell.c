@@ -45,10 +45,7 @@ void start_shell()
 
 void *shell_atoi(char *ascii)
 {
-	int *r;
-	int it;
-	int unit;
-	int tmp;
+	int *r, it, unit, tmp;
 
 	if (ascii == NULL)
 		return NULL;
@@ -96,30 +93,3 @@ void *shell_atoi(char *ascii)
 	*r = tmp;
 	return (r);
 }
-/*
-char *strtok(char *s, const char delim)
-{
-	static char **tok;
-	static int internal_it;
-	int i = 0, j = 0;
-
-	if (s == NULL)
-	{
-		if (tok[internal_it] != NULL)
-			return tok[internal_it++];
-
-		return NULL;
-	}
-
-	internal_it = 0;
-	while (*(s++) != 0)
-	{
-		for(;*(delim+j) != 0;)
-		{
-			if (*(s) != *())
-		}
-	}
-
-	if ()
-}
-*/

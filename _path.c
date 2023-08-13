@@ -67,31 +67,6 @@ void find_cmd(char **cmd_loc, char **paths, int *result_)
 	*result_ = 0;
 }
 
-char *_getpath()
-{
-    char *path   = _get_env("PATH");
-
-    if(!path) {
-        puts("PATH env was not found!.\n");
-        exit(1);
-    }
-
-    return path;
-}
-
-char **get_tokenized_path()
-{
-	char *path     = _getpath();
-	char **out;
-
-	if (!path) 
-		return NULL;
-
-	out = split_by_delim(path, ":");
-	free(path);
-	return out;
-}
-
 void init_path_manager()
 {
 	path_manager(INIT_PATH, NULL, NULL);
@@ -110,4 +85,20 @@ void  print_path()
 void resolve_command_path(char **old_path, int *res)
 {
 	path_manager(FIND_CMD, old_path, res);
+}
+
+char **get_tokenized_path()
+{
+	char *path     = _get_env("PATH");
+	char **out;
+	
+	if (!path)
+	{
+		_puts("err: path not found.\n");
+		return NULL;
+	}
+
+	out = split_by_delim(path, ":");
+	free(path);
+	return out;
 }

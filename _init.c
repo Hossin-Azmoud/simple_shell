@@ -4,7 +4,7 @@ void init_environment()
 	struct sigaction sa;
 
 	/* Init a signal handler. */
-	sa.sa_handler = _sig_int;
+	sa.sa_handler = handle_signal;
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0;
     sigaction(SIGINT, &sa, NULL);
