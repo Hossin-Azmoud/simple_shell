@@ -3,6 +3,7 @@
 #define EXIT_SUCCESS 0
 #define SHELL_HEADER "SHELL -> "
 #define INTRPT_CODE  -20
+#define SEQ_START_BYTE '\x1b'
 #define BUILTINS_MAX_SIZE 32
 #define ENV_MAX 255
 /* #define SEQ_START_BYTE '\x1b' for handling keys.. */
@@ -156,6 +157,10 @@ void uinit_environment();
 /* main */
 void start_shell();
 void __exit_shell();
+
 /* other */
 void *shell_atoi(char *ascii);
+void handle_signal(int signal);
+int _sig_int(int sig);
+
 #endif /* SIMPLE_SHELL_H */

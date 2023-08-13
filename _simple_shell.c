@@ -1,13 +1,4 @@
 #include "_simple_shell.h"
-volatile sig_atomic_t got_interrupted = 0;
-void handle_signal(int signal)
-{
-    if (signal == SIGINT)
-	{
-        got_interrupted = 1;
-    }
-}
-
 
 void print_2d(char **Array)
 {
@@ -37,7 +28,7 @@ void start_shell()
 				continue;
 			}
 
-			if (nread == -1 || nread == INTRPT)
+			if (nread == -1 || nread == INTRPT_CODE)
 				break;
 		}
 		

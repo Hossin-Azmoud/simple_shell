@@ -11,15 +11,9 @@ int _getline(char **buff, size_t *size, int fd)
 	size_t it       = 0;
 	int    nread    = 0;
 	char c;
-	struct sigaction sa;
-	
 	*size = 16;
 	*buff = malloc(*size);
-	/* Interruption logic.. */
-    sa.sa_handler = handle_signal;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(SIGINT, &sa, NULL);
+
 
 	while(consume)
 	{
@@ -49,7 +43,6 @@ int _getline(char **buff, size_t *size, int fd)
 				return -1;
 			} break;
 			case SEQ_START_BYTE: {
-				printf("started sequence..\n");
 			} break;
 			default: {
 				(*buff)[it] = c;
@@ -61,8 +54,8 @@ int _getline(char **buff, size_t *size, int fd)
 	if (it == 0 && nread == 0)
 		return -1;
 
-	if (got_interrupted)
-		return INTRPT;
+	if (_sig_int(-1) == SIGINT) /* -1 means that I want to get the value of the last signal.*/
+		return INTRPT_CODE;
 
 	return it;
 }
