@@ -1,4 +1,5 @@
 #include "_simple_shell.h"
+
 void __exit_shell()
 {
 	int size = 0;
@@ -26,4 +27,15 @@ void __exit_shell()
 
 	uinit_environment();
 	exit(code);
+}
+
+void change_dir()
+{
+	_fputs("`change_dir` NOT IMPLEMENTED\n", STDERR_FILENO);
+}
+
+void clear()
+{
+	_puts(CLEAR_BYTES);
+	_puts("\033[0;0H\n"); /* Go to the starting col and row of the term. */
 }

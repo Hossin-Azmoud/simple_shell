@@ -6,6 +6,9 @@
 #define SEQ_START_BYTE '\x1b'
 #define BUILTINS_MAX_SIZE 32
 #define ENV_MAX 255
+#define DELIM " \t\n\r"
+#define CLEAR_BYTES "\033[2J"
+
 /* #define SEQ_START_BYTE '\x1b' for handling keys.. */
 
 #include <signal.h>
@@ -92,6 +95,7 @@ typedef struct shell_state_s {
 	char **c_line_toks;
 } shell_state_t;
 
+int _fputs(char *s, int fd);
 int   _putchar(char c);
 int   _puts(char *s);
 int   _getline(char **buff, size_t *size, int fd);
@@ -156,7 +160,11 @@ void uinit_environment();
 
 /* main */
 void start_shell();
+
+/* builtins */
 void __exit_shell();
+void change_dir();
+void clear();
 
 /* other */
 void *shell_atoi(char *ascii);

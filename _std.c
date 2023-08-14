@@ -13,8 +13,7 @@ int _getline(char **buff, size_t *size, int fd)
 	char c;
 	*size = 16;
 	*buff = malloc(*size);
-
-
+	
 	while(consume)
 	{
 		if (it == *size - 2)
@@ -35,7 +34,6 @@ int _getline(char **buff, size_t *size, int fd)
 			case '\n': {
 				(*buff)[it] = 0;
 				consume = 0;
-				it++;
 			} break;
 			case '\r': {
 			} break;

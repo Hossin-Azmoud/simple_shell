@@ -19,7 +19,8 @@ void start_shell()
 	int nread = 0;
 	do {
 		nread = *((int *)reader(READ));
-		if (nread <= 1)
+
+		if (nread <= 0)
 		{
 			reader(FREE);
 			if (nread == 1)
@@ -31,7 +32,7 @@ void start_shell()
 			if (nread == -1 || nread == INTRPT_CODE)
 				break;
 		}
-		
+			
 		if (nread > 0)
 		{
 			reader(TOKENIZE);

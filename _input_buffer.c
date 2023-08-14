@@ -19,9 +19,9 @@ input_buffer_t *alloc_input_t()
 
 void *reader(reader_action_t action)
 {
-	static input_buffer_t *in;
+	static input_buffer_t *in = { 0 };
 	static size_t cap;
-
+	
 	switch(action)
 	{
 		case GET_TOKENS: {
@@ -33,19 +33,15 @@ void *reader(reader_action_t action)
 
 			in = alloc_input_t();
 			in->size = _getline(&(in->buff), &cap, STDIN_FILENO);
-
-			if (in->size > 1)
-			{
-				terminate_incoming_str(in->buff, &(in->size));
+			
+			if (in->size >= 1)
 				in->size = trim(&(in->buff));
-			}
 
 			return &(in->size);
 		} break;
 		case TOKENIZE: {
-			if (in->buff != NULL && (in->size) > 1)
-				in->tokens = parse_command(in->buff);
-
+			if (in->buff != NULL && (in->size) >= 1)
+				in->tokens = split_by_delim((in->buff), DELIM);
 		} break;
 		case FREE: {
 			if (in != NULL)

@@ -39,7 +39,7 @@ int trim(char **s)
 {
 	char   *tmp  = *s;
 	size_t it  = 0;
-	int    len = strlen(*s);
+	int    len = strlen(tmp);
 	char   *buff = malloc(len + 1);
 	
 	if (tmp == NULL || buff == NULL)
@@ -65,15 +65,34 @@ int trim(char **s)
 	return it;
 }
 
+/**
+* _strlen - a function that gets the size of a string.
+* @s: pointer to string to be processed.
+* Return: int size of the passed string.
+*/
+int _strlen(const char *s)
+{
+	int it = 0;
+	
+	if (s == NULL)
+		return (0);
+
+	while (s[it] != '\0')
+		it++;
+
+	return (it);
+}
+
 char **split_by_delim(const char *buffer, const char *delim)
 {
-	int  cap = 12;
+	int  cap = 2;
 	int  it  = 0;
+	char *tmp;
+	char **tokens;
+	char *bcopy;
 
-	char *tmp = { 0 };
-	char **tokens = malloc(sizeof(char *) * cap);
-	char *bcopy   = malloc(strlen(buffer) + 1);
-
+	tokens  = malloc(sizeof(char *) * cap);
+	bcopy   = malloc(_strlen(buffer) + 1);
 	bcopy = strcpy(bcopy, buffer);
 	tmp   = strtok(bcopy, delim);
 
@@ -89,13 +108,10 @@ char **split_by_delim(const char *buffer, const char *delim)
 		(tokens)[it] = strcpy((tokens)[it], tmp);
 		tmp          = strtok(NULL, delim);
 		it++;
-
 	}
-
 
 	tokens     =  realloc(tokens, sizeof(char *) * (it + 1));
 	tokens[it] =  NULL;
 	free(bcopy);
-
 	return tokens;
 }

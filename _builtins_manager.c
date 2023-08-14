@@ -55,6 +55,8 @@ void init_builtins()
 	set_builtin("exit", __exit_shell);
 	set_builtin("env",  print_env);
 	set_builtin("path", print_path);
+	set_builtin("cd", change_dir);
+	set_builtin("clear", clear);
 }
 
 builtin_func_t *get_builtin(char *name)

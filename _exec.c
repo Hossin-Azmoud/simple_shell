@@ -3,7 +3,7 @@
 void _exec()
 {
 	int   pid, code, stat = 0;
-	char **argv = reader(GET_TOKENS);
+	char  **argv = reader(GET_TOKENS);
 	map_t *m    = get_envp_map();
 	builtin_func_t *func;
 	char  *shell;
@@ -45,7 +45,7 @@ void _exec()
 
 	shell = _get_env("_");
 
-	printf("%s: %i: %s: not found\n", 
+	fprintf(stderr, "%s: %i: %s: not found\n", 
 		shell, 
 		get_line_index(),
 		argv[0]
