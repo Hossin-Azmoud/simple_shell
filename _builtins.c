@@ -2,13 +2,10 @@
 
 void __exit_shell()
 {
-	int size = 0;
+	int size = 0, code = (get_status());
 	void *code_ptr;
-	int code = (get_status());
 	char **argv = reader(GET_TOKENS);
-
-	while (argv[size] != NULL)
-		size++;
+	size = _strlen2d(argv);
 
 	if (size > 1)
 	{
@@ -18,24 +15,41 @@ void __exit_shell()
 			fprintf(stderr, "[ERROR] invalid number given to exit `%s`\n", argv[1]);
 			return;
 		}
-		else 
-		{
-			code = *(int *) code_ptr;
-			free(code_ptr);
-		}
+
+		code = *(int *) code_ptr;
+		free(code_ptr);
 	}
 
 	uinit_environment();
 	exit(code);
 }
 
-void change_dir()
-{
-	_fputs("`change_dir` NOT IMPLEMENTED\n", STDERR_FILENO);
-}
-
 void clear()
 {
 	_puts(CLEAR_BYTES);
 	_puts("\033[0;0H\n"); /* Go to the starting col and row of the term. */
+}
+
+void change_dir()
+{	
+	char **args    = reader(GET_TOKENS);
+	int res, count = _strlen2d(args);
+
+	if(count == 1) 
+	{
+		res = chdir(ROOT);
+
+		if(res != 0)
+			perror("[ERROR (CD)]");
+
+		return;
+	}
+
+	res = chdir(args[1]);
+	if(res != 0)
+	{
+		_puts(args[1]);
+		_putchar(' ');
+		perror(":");
+	}
 }

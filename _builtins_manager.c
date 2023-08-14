@@ -16,7 +16,7 @@ builtin_func_t *builtins_manager(builtins_action_t action, char *name, void (*f)
 			while (it < size)
 			{
 				temp_func = (funcs + it);
-				if (strcmp(temp_func->name, name) == 0)
+				if (_strcmp(temp_func->name, name) == 0)
 					return temp_func;
 				it++;
 			}

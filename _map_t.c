@@ -14,7 +14,7 @@ map_t *create_map(size_t size)
 	return (m);
 }
 
-void append_entry(map_t *m, const char *entry, const char *key, const char *value)
+void append_entry(map_t *m, char *entry, char *key, char *value)
 {
 	char **kv;
 	int idx = (m)->size;
@@ -51,13 +51,13 @@ void append_entry(map_t *m, const char *entry, const char *key, const char *valu
 	fprintf(stderr, "invalid input was supplied to `append_entry` function.\n");
 }
 
-char *get_value(const map_t *m, const char *key)
+char *get_value(const map_t *m, char *key)
 {
 	int iter = 0;
 
 	while((m)->keys[iter])
 	{
-		if (strcmp((m)->keys[iter], key) == 0)
+		if (_strcmp((m)->keys[iter], key) == 0)
 			return strdup((m)->values[iter]);
 
 		iter++;
@@ -66,7 +66,7 @@ char *get_value(const map_t *m, const char *key)
 	return NULL;
 }
 
-void set_value(map_t *m, const char *key, const char *value)
+void set_value(map_t *m, char *key, char *value)
 {
 	int idx = 0;
 

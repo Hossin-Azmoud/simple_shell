@@ -1,6 +1,6 @@
 #include "_simple_shell.h"
 
-void *env_manager(env_action_t action, const char *key, const char *value)
+void *env_manager(env_action_t action, char *key, char *value)
 {
 
 	static map_t *env_map;
@@ -30,7 +30,7 @@ void *env_manager(env_action_t action, const char *key, const char *value)
 			distroy_map(env_map);
 		} break;
 		case GET_MAP: {
-			return env_map;
+			return (env_map);
 		} break;
 		default:
 			printf("UNREACHABLE.\n");
@@ -50,7 +50,7 @@ void release_env_()
 	);
 }
 
-char *_get_env(const char *key)
+char *_get_env(char *key)
 {
 	return (char *) env_manager(
 		GET_VALUE, 
@@ -59,7 +59,7 @@ char *_get_env(const char *key)
 	);
 }
 
-void _set_env(const char *key, const char *value)
+void _set_env(char *key, char *value)
 {
 	env_manager(
 		SET_ENTRY, 

@@ -33,7 +33,7 @@ void *reader(reader_action_t action)
 
 			in = alloc_input_t();
 			in->size = _getline(&(in->buff), &cap, STDIN_FILENO);
-			
+				
 			if (in->size >= 1)
 				in->size = trim(&(in->buff));
 

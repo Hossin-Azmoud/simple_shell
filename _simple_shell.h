@@ -8,6 +8,7 @@
 #define ENV_MAX 255
 #define DELIM " \t\n\r"
 #define CLEAR_BYTES "\033[2J"
+#define ROOT "/"
 
 /* #define SEQ_START_BYTE '\x1b' for handling keys.. */
 
@@ -95,7 +96,10 @@ typedef struct shell_state_s {
 	char **c_line_toks;
 } shell_state_t;
 
-int _fputs(char *s, int fd);
+int   _strcmp(char *s1, char *s2);
+int   _strlen(char *s);
+int   _strlen2d(char **array);
+int   _fputs(char *s, int fd);
 int   _putchar(char c);
 int   _puts(char *s);
 int   _getline(char **buff, size_t *size, int fd);
@@ -105,16 +109,16 @@ void  free_n2d(char **Array, int n);
 void  print_2d(char **Array);
 void  terminate_incoming_str(char *s, int *size);
 int   trim(char **s);
-char  **split_by_delim(const char *buffer, const char *delim);
+char  **split_by_delim(char *buffer, char *delim);
 char  **parse_command(char *buff);
 char  *_getpath();
 char  **get_tokenized_path();
 void  _exec();
-char  *get_value(const map_t *m, const char *key);
-void  set_value(map_t *m, const char *key, const char *value);
+char  *get_value(const map_t *m, char *key);
+void  set_value(map_t *m, char *key, char *value);
 map_t *create_map(size_t size);
 void  distroy_map(map_t *m);
-void  append_entry(map_t *m, const char *entry, const char *key, const char *value);
+void  append_entry(map_t *m, char *entry, char *key, char *value);
 void  map_cpy(map_t *m, char **src);
 
 /* PATH MANAGER */
@@ -127,13 +131,13 @@ void print_path();
 void release_path();
 
 /* ENV MANAGER */
-void  *env_manager(env_action_t action, const char *key, const char *value);
+void  *env_manager(env_action_t action, char *key, char *value);
 void  init_env_manager();
 void  print_env();
 void  print_env_internal(map_t *m);
 map_t *get_envp_map();
-char  *_get_env(const char *key);
-void  _set_env(const char *key, const char *value);
+char  *_get_env(char *key);
+void  _set_env(char *key, char *value);
 void  release_env_();
 
 /* SHELL_STATE_MANAGER */

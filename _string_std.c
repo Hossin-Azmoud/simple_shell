@@ -65,12 +65,50 @@ int trim(char **s)
 	return it;
 }
 
+int _strlen2d(char **array)
+{
+	int sz = 0;
+
+	if (array == NULL)
+		return (sz);
+
+	while (array[sz] != NULL)
+		sz++;
+
+	return (sz);
+}
+
+/**
+* _strcmp - function that compares two strings
+* @s1: string
+* @s2: string
+* Return: 0 if s1 == s2 and 1 otherwise
+*/
+int _strcmp(char *s1, char *s2)
+{
+	int it = 0;
+
+	while (s1[it] && s2[it])
+	{
+		if (s1[it] != s2[it])
+			break;
+
+		it++;
+	}
+
+	if (s1[it] == '\0' && s2[it] == '\0')
+		return (0);
+
+	return (s1[it] - s2[it]);
+}
+
+
 /**
 * _strlen - a function that gets the size of a string.
 * @s: pointer to string to be processed.
 * Return: int size of the passed string.
 */
-int _strlen(const char *s)
+int _strlen(char *s)
 {
 	int it = 0;
 	
@@ -83,7 +121,7 @@ int _strlen(const char *s)
 	return (it);
 }
 
-char **split_by_delim(const char *buffer, const char *delim)
+char **split_by_delim(char *buffer,  char *delim)
 {
 	int  cap = 2;
 	int  it  = 0;
@@ -115,3 +153,4 @@ char **split_by_delim(const char *buffer, const char *delim)
 	free(bcopy);
 	return tokens;
 }
+
