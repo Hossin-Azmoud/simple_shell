@@ -1,5 +1,9 @@
 #include "_simple_shell.h"
-
+/**
+* free_n2d - function free the array
+* @Array: the array will be free
+* @n: the argument or index
+*/
 void  free_n2d(char **Array, int n)
 {
 	int	it = 0;
@@ -19,7 +23,7 @@ void  free_n2d(char **Array, int n)
 }
 
 void free_2d(char **Array)
-{	
+{
 	int	it = 0;
 
 	if (Array == NULL)
@@ -30,7 +34,7 @@ void free_2d(char **Array)
 		free(Array[it]);
 		it++;
 	}
-	
+
 	free(Array);
 }
 
