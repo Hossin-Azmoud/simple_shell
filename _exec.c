@@ -1,6 +1,10 @@
 #include "_simple_shell.h"
 
-void _exec()
+/**
+ * _exec - function that manage the executing of
+ *		the simple shell
+ */
+void _exec(void)
 {
 	int   pid, code, stat = 0;
 	char  **argv = reader(GET_TOKENS);
@@ -18,15 +22,15 @@ void _exec()
 	}
 
 	resolve_command_path(&argv[0], &res);
-	if(res)
+	if (res)
 	{
 		pid = fork();
-		if(pid == 0)
+		if (pid == 0)
 		{
 			/* Child Process. */
 			code = execve(argv[0], argv, m->all);
 
-			if(code == -1) 
+			if (code == -1)
 			{
 				perror("[ERROR]");
 				reader(FREE);
@@ -42,11 +46,10 @@ void _exec()
 		set_status(WEXITSTATUS(stat));
 		return;
 	}
-
 	shell = _get_env("_");
 
-	fprintf(stderr, "%s: %i: %s: not found\n", 
-		shell, 
+	fprintf(stderr, "%s: %i: %s: not found\n",
+		shell,
 		get_line_index(),
 		argv[0]
 	);
