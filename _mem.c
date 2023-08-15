@@ -22,7 +22,7 @@ void  free_n2d(char **Array, int n)
 	free(Array);
 }
 /**
-* free_n2d - function free the array
+* free_2d - function free the array
 * @Array: the array will be free
 */
 void free_2d(char **Array)
