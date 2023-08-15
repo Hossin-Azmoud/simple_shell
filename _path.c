@@ -84,7 +84,10 @@ void init_path_manager(void)
 {
 	path_manager(INIT_PATH, NULL, NULL);
 }
-
+/**
+* release_path - function that release the path
+* 
+*/
 void  release_path(void)
 {
 	path_manager(CLEAR_PATH, NULL, NULL);
