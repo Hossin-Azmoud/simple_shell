@@ -1,5 +1,6 @@
 #include "_simple_shell.h"
 
+
 void *env_manager(env_action_t action, char *key, char *value)
 {
 
