@@ -1,5 +1,10 @@
 #include "_simple_shell.h"
-
+/**
+* path_manager - function that manage the path
+* @action: the action of the argument
+* @cmd_loc: check the argument
+* @res: the result of the arguments
+*/
 void path_manager(path_action_t action, char **cmd_loc, int *res)
 {
 	static char **path_;
@@ -10,7 +15,7 @@ void path_manager(path_action_t action, char **cmd_loc, int *res)
 			print_2d(path_);
 		} break;
 	    case INIT_PATH: {
-			path_ = get_tokenized_path();
+			path_ = get_tokenized_path(void);
 		} break;
 		case FIND_CMD: {
 			find_cmd(cmd_loc, path_, res);
@@ -23,7 +28,12 @@ void path_manager(path_action_t action, char **cmd_loc, int *res)
 			break;
 	}
 }
-
+/**
+* find_cmd - function that find the path
+* @cmd_loc: check the argument
+* @paths: the path or the argument
+* @result_: the result of the arguments
+*/
 void find_cmd(char **cmd_loc, char **paths, int *result_)
 {
 	int i = 0;
@@ -66,39 +76,17 @@ void find_cmd(char **cmd_loc, char **paths, int *result_)
 	
 	*result_ = 0;
 }
-
-void init_path_manager()
+/**
+* init_path_manager - function that initial the path
+* 
+*/
+void init_path_manager(void)
 {
 	path_manager(INIT_PATH, NULL, NULL);
 }
 
-void  release_path()
+void  release_path(void)
 {
 	path_manager(CLEAR_PATH, NULL, NULL);
 }
 
-void  print_path()
-{
-	path_manager(PRINT_PATH, NULL, NULL);
-}
-
-void resolve_command_path(char **old_path, int *res)
-{
-	path_manager(FIND_CMD, old_path, res);
-}
-
-char **get_tokenized_path()
-{
-	char *path     = _get_env("PATH");
-	char **out;
-	
-	if (!path)
-	{
-		_puts("err: path not found.\n");
-		return NULL;
-	}
-
-	out = split_by_delim(path, ":");
-	free(path);
-	return out;
-}
