@@ -42,7 +42,7 @@ int get_line_index(void)
 }
 /**
 * inc_line_index - function that incrementate the line in of index
-* Return: shell state manager with the index of the line
+* Return: shell state manager with the index of the line in file
 */
 void inc_line_index(void)
 {
