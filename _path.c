@@ -38,17 +38,18 @@ void find_cmd(char **cmd_loc, char **paths, int *result_)
 {
 	int i = 0;
 	int res;
-	char *copy = NULL;	
+	char *copy = NULL;
 	int path_size;
-	res = access(*cmd_loc, X_OK); 
-	
-	if(res != -1)
+
+	res = access(*cmd_loc, X_OK);
+
+	if (res != -1)
 	{
 		*result_ = 1;
 		return;
 	}
 
-	while(paths[i] != NULL)
+	while (paths[i] != NULL)
 	{
 		path_size = (strlen(paths[i]) + strlen(*cmd_loc) + 2);
 		copy      = (char *) malloc(path_size);
@@ -56,15 +57,15 @@ void find_cmd(char **cmd_loc, char **paths, int *result_)
 		strcpy(copy, paths[i]);
 		strcat(copy, "/");
 		strcat(copy, *cmd_loc);
-		
+
 		res = access(copy, X_OK);
-		
-		if(res != -1)
+
+		if (res != -1)
 		{
 			free(*cmd_loc);
 			*cmd_loc = malloc(path_size);
 			strcpy(*cmd_loc, copy);
-			free(copy);	
+			free(copy);
 			*result_ = 1;
 			return;
 		}
@@ -73,12 +74,12 @@ void find_cmd(char **cmd_loc, char **paths, int *result_)
 		free(copy);
 		copy = NULL;
 	}
-	
+
 	*result_ = 0;
 }
 /**
 * init_path_manager - function that initial the path
-* 
+*
 */
 void init_path_manager(void)
 {
@@ -86,7 +87,7 @@ void init_path_manager(void)
 }
 /**
 * release_path - function that release the path
-* 
+*
 */
 void  release_path(void)
 {
