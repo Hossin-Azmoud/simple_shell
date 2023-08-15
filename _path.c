@@ -14,7 +14,7 @@ void path_manager(path_action_t action, char **cmd_loc, int *res)
 		case PRINT_PATH: {
 			print_2d(path_);
 		} break;
-	    case INIT_PATH: {
+		case INIT_PATH: {
 			path_ = get_tokenized_path(void);
 		} break;
 		case FIND_CMD: {
