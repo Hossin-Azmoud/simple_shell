@@ -8,7 +8,6 @@ void prompt_user(void)
 }
 /**
 * _getline - the function get the line
-*
 * @buff: the buffer use
 * @size: the size of the buffer
 * @fd: the argument
@@ -16,14 +15,12 @@ void prompt_user(void)
 */
 int _getline(char **buff, size_t *size, int fd)
 {
-	int    consume  = 1;
-	size_t it       = 0;
-	int    nread    = 0;
+	int consume = 1, nread = 0;
+	size_t it = 0;
 	char c;
 
 	*size = 16;
 	*buff = malloc(*size);
-
 	while (consume)
 	{
 		if (it == *size - 2)
@@ -31,27 +28,20 @@ int _getline(char **buff, size_t *size, int fd)
 			*size *= 2;
 			*buff = realloc(*buff, *size);
 			if (buff == NULL)
-			{
-				fprintf(stderr, "realloc failed to reallocate new buffer\n");
 				return (-1);
-			}
 		}
-
-		if ((nread = read(fd, &c, 1)) <= 0)
+		nread = read(fd, &c, 1);
+		if (nread <= 0)
 			break;
-		/* reallocate memory.*/
 		switch (c)
 		{
+			case '\r':
 			case '\n': {
 				(*buff)[it] = 0;
 				consume = 0;
 			} break;
-			case '\r': {
-			} break;
 			case EOF: {
 				return (-1);
-			} break;
-			case SEQ_START_BYTE: {
 			} break;
 			default: {
 				(*buff)[it] = c;
@@ -59,12 +49,9 @@ int _getline(char **buff, size_t *size, int fd)
 			} break;
 		}
 	}
-
 	if (it == 0 && nread == 0)
 		return (-1);
-
 	if (_sig_int(-1) == SIGINT)
 		return (INTRPT_CODE);
-/* -1 means that I want to get the value of the last signal.*/
 	return (it);
 }
