@@ -9,7 +9,7 @@
 #define DELIM " \t\n\r"
 #define CLEAR_BYTES ("\033[2J")
 #define ROOT "/"
-
+#define PATH_MAX 4096
 /* #define SEQ_START_BYTE '\x1b' for handling keys.. */
 
 #include <signal.h>
@@ -162,7 +162,7 @@ typedef struct shell_state_s
 	char *c_line;
 	char **c_line_toks;
 } shell_state_t;
-
+char *get_shell_header(void);
 int   _strcmp(char *s1, char *s2);
 int   _strlen(char *s);
 int   _strlen2d(char **array);
@@ -187,6 +187,7 @@ map_t *create_map(size_t size);
 void  distroy_map(map_t *m);
 void  append_entry(map_t *m, char *entry, char *key, char *value);
 void  map_cpy(map_t *m, char **src);
+
 
 /* PATH MANAGER */
 

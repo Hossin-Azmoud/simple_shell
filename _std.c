@@ -4,8 +4,27 @@
  */
 void prompt_user(void)
 {
-	_puts(SHELL_HEADER);
+	char *header = get_shell_header();
+
+	_puts(header);
+	_puts("\n-> ");
+
+	free(header);
 }
+
+char *get_shell_header(void)
+{
+	/* SHELL@USER :: (PWD) */
+	char *first_con	= "SHELL :: ";
+	char *user_name = _get_env("USER");
+	char *header    = malloc(strlen(first_con) + strlen(user_name) + 1);
+
+	header = strcpy(header, first_con);
+	header = strcat(header, user_name);
+
+	return (header);
+}
+
 /**
 * _getline - the function get the line
 * @buff: the buffer use

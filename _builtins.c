@@ -44,14 +44,20 @@ void change_dir(void)
 {
 	char **args    = reader(GET_TOKENS);
 	int res, count = _strlen2d(args);
+	char cwd[PATH_MAX];
+	getcwd(cwd, PATH_MAX);
 
 	if (count == 1)
 	{
 		res = chdir(ROOT);
-
 		if (res != 0)
+		{
 			perror("[ERROR (CD)]");
+			return;
+		}
 
+		_set_env("PWD", ROOT);
+		_set_env("OLDPWD", cwd);
 		return;
 	}
 
@@ -61,5 +67,9 @@ void change_dir(void)
 		_puts(args[1]);
 		_putchar(' ');
 		perror(":");
+		return;
 	}
+
+	_set_env("PWD", args[1]);
+	_set_env("OLDPWD", cwd);
 }
