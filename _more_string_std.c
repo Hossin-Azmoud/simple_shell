@@ -1,5 +1,10 @@
 #include "_simple_shell.h"
-
+/**
+* _strlen2d - a function that gets the size of a string
+*				in 2 dimention
+* @array: the array want to strlen
+* Return: the size
+*/
 int _strlen2d(char **array)
 {
 	int sz = 0;
@@ -46,7 +51,7 @@ int _strcmp(char *s1, char *s2)
 int _strlen(char *s)
 {
 	int it = 0;
-	
+
 	if (s == NULL)
 		return (0);
 
@@ -55,7 +60,12 @@ int _strlen(char *s)
 
 	return (it);
 }
-
+/**
+* split_by_delim - function that split by delim
+* @buffer: the buffer to use
+* @delim: the argument to use
+* Return: the size
+*/
 char **split_by_delim(char *buffer,  char *delim)
 {
 	int  cap = 2;
@@ -86,6 +96,6 @@ char **split_by_delim(char *buffer,  char *delim)
 	tokens     =  realloc(tokens, sizeof(char *) * (it + 1));
 	tokens[it] =  NULL;
 	free(bcopy);
-	return tokens;
+	return (tokens);
 }
 
