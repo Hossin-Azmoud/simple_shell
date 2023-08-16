@@ -6,7 +6,7 @@
  */
 int _sig_int(int sig)
 {
-	static int internal_sig = 0;
+	static int internal_sig = -1;
 
 	if (sig == -1)
 		return (internal_sig);

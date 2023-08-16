@@ -12,8 +12,7 @@ input_buffer_t *alloc_input_t(void)
 
 	if (in == NULL)
 	{
-		fprintf(stderr, "Failed to allocate mem.
-		user input will be ignored for now until memory is ready.\n");
+		fprintf(stderr, "Failed to allocate memory.\n");
 		return (NULL);
 	}
 

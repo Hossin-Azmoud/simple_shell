@@ -1,4 +1,5 @@
 #include "_simple_shell.h"
+
 /**
  * set_value - function that get the value of map
  * @m : the map
@@ -33,13 +34,13 @@ void set_value(map_t *m, char *key, char *value)
 
 	if (idx > (m)->cap)
 	{
-		fprintf(stderr, "THE CAP THAT WAS INITIALIZED
-			FOR THE MAP IS NOT ENOUGH TO STORE NEW VALUES.\n");
+		fprintf(stderr, "Map was exauhsted..\n");
 		return;
 	}
 
 	append_entry(m, NULL, key, value);
 }
+
 /**
 * distroy_map - function distroying the map
 * @m: the argument of the map
@@ -51,6 +52,7 @@ void distroy_map(map_t *m)
 	free_n2d((m)->all,	  (m)->size);
 	free((m));
 }
+
 /**
 * map_cpy - function that copy the map
 * @m: the map

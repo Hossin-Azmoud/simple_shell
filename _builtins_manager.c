@@ -27,7 +27,7 @@ builtin_func_t
 			{
 				temp_func = (funcs + it);
 				if (_strcmp(temp_func->name, name) == 0)
-					return temp_func;
+					return (temp_func);
 				it++;
 			}
 
@@ -56,7 +56,7 @@ builtin_func_t
 			break;
 	}
 
-	return NULL;
+	return (NULL);
 }
 
 

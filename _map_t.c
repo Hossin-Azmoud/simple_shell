@@ -1,4 +1,5 @@
 #include "_simple_shell.h"
+
 /**
  * create_map - function that create map
  * @size: size of the map
@@ -80,4 +81,3 @@ char *get_value(const map_t *m, char *key)
 
 	return (NULL);
 }
-

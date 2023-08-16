@@ -9,18 +9,6 @@ void print_env(void)
 	env_manager(PRINT_ENV, NULL, NULL);
 }
 
-/**
- * print_env_internal - function that print enviromnent
- *                      internal
- * @m: check the argument
- */
-
-void print_env_internal(map_t *m)
-{
-	char **env = m->all;
-
-	print_2d(env);
-}
 
 /**
  * get_envp_map - function that return the env

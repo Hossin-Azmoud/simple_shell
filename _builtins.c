@@ -30,10 +30,9 @@ void __exit_shell(void)
 /**
  * clear - function that clear bytes
  */
-
 void clear(void)
 {
-	_puts(CLEAR_BYTES);
+	_puts(CLEAR_BYTES); /* Clear the terminal */
 	_puts("\033[0;0H\n"); /* Go to the starting col and row of the term. */
 }
 
@@ -41,7 +40,6 @@ void clear(void)
  * change_dir - function that change directory
  * Return: Always 0
  */
-
 void change_dir(void)
 {
 	char **args    = reader(GET_TOKENS);

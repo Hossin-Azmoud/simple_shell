@@ -1,4 +1,5 @@
 #include "_simple_shell.h"
+
 /**
 * free_n2d - function free the array
 * @Array: the array will be free
@@ -21,6 +22,7 @@ void  free_n2d(char **Array, int n)
 
 	free(Array);
 }
+
 /**
 * free_2d - function free the array
 * @Array: the array will be free
@@ -32,7 +34,7 @@ void free_2d(char **Array)
 	if (Array == NULL)
 		return;
 
-	while (Array[it]) /* VALGRIND COMPLAINS */
+	while (Array[it])
 	{
 		free(Array[it]);
 		it++;
@@ -40,4 +42,3 @@ void free_2d(char **Array)
 
 	free(Array);
 }
-

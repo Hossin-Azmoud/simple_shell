@@ -66,7 +66,6 @@ void *shell_atoi(char *ascii)
 	tmp  = 0;
 	unit = 1;
 	it   = (strlen(ascii) - 1);
-
 	while (it >= 0)
 	{
 		if (it == 0)
@@ -77,17 +76,6 @@ void *shell_atoi(char *ascii)
 				*r = tmp;
 				return (r);
 			}
-
-
-			if (ascii[it] >= '0' && ascii[it] <= '9')
-			{
-				tmp += ((int)(ascii[it] - '0')) * unit;
-				*r = tmp;
-				return (r);
-			}
-
-			free(r);
-			return (NULL);
 		}
 
 		if (ascii[it] >= '0' && ascii[it] <= '9')
