@@ -1,13 +1,19 @@
 #include "_simple_shell.h"
-
-input_buffer_t *alloc_input_t()
+/**
+ * *alloc_input_t - function allocate the memory to
+ *	the inputs
+ *
+ * Return: the inputs with the allocated memory
+ */
+input_buffer_t *alloc_input_t(void)
 {
 
 	input_buffer_t *in = malloc(sizeof(input_buffer_t));
 
 	if (in == NULL)
 	{
-		fprintf(stderr, "Failed to allocate mem. user input will be ignored for now until memory is ready.\n");
+		fprintf(stderr, "Failed to allocate mem.
+		user input will be ignored for now until memory is ready.\n");
 		return (NULL);
 	}
 
@@ -16,13 +22,18 @@ input_buffer_t *alloc_input_t()
 	in->size   = 0;
 	return (in);
 }
+/**
+ * reader - function that read the input
+ * @action: check the argument
+ * Return: to the condition
+ */
 
 void *reader(reader_action_t action)
 {
 	static input_buffer_t *in = { 0 };
 	static size_t cap;
-	
-	switch(action)
+
+	switch (action)
 	{
 		case GET_TOKENS: {
 			return (in->tokens);
@@ -33,11 +44,11 @@ void *reader(reader_action_t action)
 
 			in = alloc_input_t();
 			in->size = _getline(&(in->buff), &cap, STDIN_FILENO);
-				
+
 			if (in->size >= 1)
 				in->size = trim(&(in->buff));
 
-			return &(in->size);
+			return (&(in->size));
 		} break;
 		case TOKENIZE: {
 			if (in->buff != NULL && (in->size) >= 1)

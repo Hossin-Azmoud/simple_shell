@@ -1,5 +1,9 @@
 #include "_simple_shell.h"
-
+/**
+* terminate_incoming_str - function that terminate incoming string
+* @s: the string or the argument
+* @size: the size
+*/
 void terminate_incoming_str(char *s, int *size)
 {
 	if (*size >= 2)
@@ -16,45 +20,62 @@ void terminate_incoming_str(char *s, int *size)
 	}
 }
 
-
+/**
+* _fputs - function that put the string
+* @s: the string or the argument
+* @fd: the argument
+* Return: the string
+*/
 int _fputs(char *s, int fd)
 {
 	if (s == NULL)
-		return _puts("(null)");
+		return (_puts("(null)"));
 	else
 		return (write(fd, s, strlen(s)));
 }
-
+/**
+* _puts - function that put the string
+* @s: the string or the argument
+* Return: the string
+*/
 int _puts(char *s)
 {
 	return (_fputs(s, STDOUT_FILENO));
 }
-
+/**
+* _putchar - function that put the string
+* @c: the character or the argument
+* Return: the character
+*/
 int _putchar(char c)
 {
 	return (_fputs(&c, STDOUT_FILENO));
 }
-
+/**
+* trim - function that put the string
+* @s: the string or the argument
+* Return: the string
+*/
 int trim(char **s)
 {
 	char   *tmp  = *s;
 	size_t it  = 0;
 	int    len = strlen(tmp);
 	char   *buff = malloc(len + 1);
-	
+
 	if (tmp == NULL || buff == NULL)
-		return 0;
+		return (0);
 
 	if (!isspace(*tmp))
 	{
 		free(buff);
-		return len;
+		return (len);
 	}
 
-	while(isspace(*tmp))
+	while (isspace(*tmp))
 		tmp++;
 
-	while(*tmp) 
+	while (*tmp)
 		buff[it++] = *tmp++;
 
 	buff[it] = '\0';
@@ -62,62 +83,6 @@ int trim(char **s)
 	free(*s);
 
 	*s = buff;
-	return it;
-}
-
-int _strlen2d(char **array)
-{
-	int sz = 0;
-
-	if (array == NULL)
-		return (sz);
-
-	while (array[sz] != NULL)
-		sz++;
-
-	return (sz);
-}
-
-/**
-* _strcmp - function that compares two strings
-* @s1: string
-* @s2: string
-* Return: 0 if s1 == s2 and 1 otherwise
-*/
-int _strcmp(char *s1, char *s2)
-{
-	int it = 0;
-
-	while (s1[it] && s2[it])
-	{
-		if (s1[it] != s2[it])
-			break;
-
-		it++;
-	}
-
-	if (s1[it] == '\0' && s2[it] == '\0')
-		return (0);
-
-	return (s1[it] - s2[it]);
-}
-
-
-/**
-* _strlen - a function that gets the size of a string.
-* @s: pointer to string to be processed.
-* Return: int size of the passed string.
-*/
-int _strlen(char *s)
-{
-	int it = 0;
-	
-	if (s == NULL)
-		return (0);
-
-	while (s[it] != '\0')
-		it++;
-
 	return (it);
 }
 

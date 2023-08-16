@@ -1,20 +1,30 @@
 #include "_simple_shell.h"
-
-void prompt_user()
+/**
+ * prompt_user - function take the prompt of the user
+ */
+void prompt_user(void)
 {
 	_puts(SHELL_HEADER);
 }
-
+/**
+* _getline - the function get the line
+*
+* @buff: the buffer use
+* @size: the size of the buffer
+* @fd: the argument
+* Return: in condition -1 or the line
+*/
 int _getline(char **buff, size_t *size, int fd)
 {
 	int    consume  = 1;
 	size_t it       = 0;
 	int    nread    = 0;
 	char c;
+
 	*size = 16;
 	*buff = malloc(*size);
-	
-	while(consume)
+
+	while (consume)
 	{
 		if (it == *size - 2)
 		{
@@ -23,13 +33,14 @@ int _getline(char **buff, size_t *size, int fd)
 			if (buff == NULL)
 			{
 				fprintf(stderr, "realloc failed to reallocate new buffer\n");
-				return -1;
+				return (-1);
 			}
 		}
 
-		if ((nread = read(fd, &c, 1)) <= 0) break;
-		/* reallocate memory.*/	
-		switch(c)
+		if ((nread = read(fd, &c, 1)) <= 0)
+			break;
+		/* reallocate memory.*/
+		switch (c)
 		{
 			case '\n': {
 				(*buff)[it] = 0;
@@ -38,7 +49,7 @@ int _getline(char **buff, size_t *size, int fd)
 			case '\r': {
 			} break;
 			case EOF: {
-				return -1;
+				return (-1);
 			} break;
 			case SEQ_START_BYTE: {
 			} break;
@@ -48,12 +59,12 @@ int _getline(char **buff, size_t *size, int fd)
 			} break;
 		}
 	}
-	
+
 	if (it == 0 && nread == 0)
-		return -1;
+		return (-1);
 
-	if (_sig_int(-1) == SIGINT) /* -1 means that I want to get the value of the last signal.*/
-		return INTRPT_CODE;
-
-	return it;
+	if (_sig_int(-1) == SIGINT)
+		return (INTRPT_CODE);
+/* -1 means that I want to get the value of the last signal.*/
+	return (it);
 }

@@ -4,7 +4,7 @@
 * main - entry point.
 * Return: always 0.
 */
-int main()
+int main(void)
 {
 	init_environment();
 	start_shell();

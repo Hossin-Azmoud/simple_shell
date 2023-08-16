@@ -1,12 +1,15 @@
 #include "_simple_shell.h"
+/**
+ * __exit_shell - function that exit shell
+ */
 
-void __exit_shell()
+void __exit_shell(void)
 {
 	int size = 0, code = (get_status());
 	void *code_ptr;
 	char **argv = reader(GET_TOKENS);
-	size = _strlen2d(argv);
 
+	size = _strlen2d(argv);
 	if (size > 1)
 	{
 		code_ptr = shell_atoi(argv[1]);
@@ -24,29 +27,38 @@ void __exit_shell()
 	exit(code);
 }
 
-void clear()
+/**
+ * clear - function that clear bytes
+ */
+
+void clear(void)
 {
 	_puts(CLEAR_BYTES);
 	_puts("\033[0;0H\n"); /* Go to the starting col and row of the term. */
 }
 
-void change_dir()
-{	
+/**
+ * change_dir - function that change directory
+ * Return: Always 0
+ */
+
+void change_dir(void)
+{
 	char **args    = reader(GET_TOKENS);
 	int res, count = _strlen2d(args);
 
-	if(count == 1) 
+	if (count == 1)
 	{
 		res = chdir(ROOT);
 
-		if(res != 0)
+		if (res != 0)
 			perror("[ERROR (CD)]");
 
 		return;
 	}
 
 	res = chdir(args[1]);
-	if(res != 0)
+	if (res != 0)
 	{
 		_puts(args[1]);
 		_putchar(' ');
