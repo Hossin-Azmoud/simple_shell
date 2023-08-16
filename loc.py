@@ -22,7 +22,6 @@ docs = {
 def usage():
     print(f"    { argv[0] } `term` { f.YELLOW } --dump -o { f.RESET }[OUT] {f.YELLOW} --filetypes")
     for (flag, flag_info_list) in docs.items():
-
         print(f"    {f.YELLOW}{flag}:{f.RESET}")
         for info in flag_info_list:
             print(f"      {info}")
@@ -98,7 +97,6 @@ def scan_dir(targets: list[str], dir_: str = '.') -> list[str]:
         name = i.name
         if i.is_file():
             if len(targets) == 0:
-                print("ADDING: %s" % name)
                 files.append(name)
                 continue
 

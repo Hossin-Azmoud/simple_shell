@@ -12,6 +12,7 @@ builtin_func_t *builtins_manager(builtins_action_t action, char *name, void (*f)
 		case INIT_BUILTN: {
 			size = 0;
 		} break;
+
 		case GET_BUILTN: {
 			while (it < size)
 			{
@@ -45,7 +46,6 @@ builtin_func_t *builtins_manager(builtins_action_t action, char *name, void (*f)
 	}
 
 	return NULL;
-
 }
 
 void init_builtins()

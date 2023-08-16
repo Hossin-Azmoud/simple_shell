@@ -24,7 +24,7 @@ void *env_manager(env_action_t action, char *key, char *value)
 			return env_map->keys;
 		} break;
 		case DELETE_ENTRY: {
-			printf("UNREACHABLE, not implemented..\n");
+			printf("UNREAs sHABLE, not implemented..\n");
 		} break;
 		case CLEAR_ENV: {
 			distroy_map(env_map);
