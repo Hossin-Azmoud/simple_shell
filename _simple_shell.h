@@ -162,6 +162,20 @@ typedef struct shell_state_s
 	char *c_line;
 	char **c_line_toks;
 } shell_state_t;
+
+/**
+ * struct meta_data_s - shell meta information.
+ * @uname:  user name.
+ * @pwd:    current working directory.
+ * @prompt: shell pro max.
+ */
+typedef struct meta_data_s
+{
+	char *uname;
+	char *pwd;
+	char *prompt;
+} meta_data_t;
+
 char *get_shell_header(void);
 int   _strcmp(char *s1, char *s2);
 int   _strlen(char *s);

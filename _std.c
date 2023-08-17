@@ -1,35 +1,55 @@
 #include "_simple_shell.h"
+
+
+/**
+ * get_meta - get meta data for the shell
+ * it gets the user name, the pwd, the prompt.
+ * Return: meta data.
+ */
+static meta_data_t *get_meta(void)
+{
+	meta_data_t *meta = malloc(sizeof(meta_data_t));
+	int sz;
+
+	if (meta == NULL)
+	{
+		fprintf(stderr, "couuld not allocate mem for meta_data_t\n");
+		return (NULL);
+	}
+
+	meta->uname  = _get_env("USER");
+	meta->pwd = malloc(PATH_MAX + 1);
+
+	while (realpath(_get_env("PWD"), meta->pwd) == NULL)
+	{}
+
+	meta->prompt = strdup("SHELL@"); /* note: free it */
+	sz = (strlen(meta->prompt) + strlen(meta->uname) + strlen(meta->pwd) + 7);
+	meta->prompt = realloc(meta->prompt, sz);
+	meta->prompt = strcat(meta->prompt, meta->uname);
+	meta->prompt = strcat(meta->prompt, " :: [");
+	meta->prompt = strcat(meta->prompt, meta->pwd);
+	meta->prompt = strcat(meta->prompt, "]");
+	return (meta);
+}
 /**
  * prompt_user - function take the prompt of the user
  */
 void prompt_user(void)
 {
-	char *header = get_shell_header();
+	meta_data_t *meta = get_meta();
 
-	_puts(header);
+	if (meta == NULL)
+	{
+		_puts("SHELL -> ");
+		return;
+	}
+
+	_puts(meta->prompt);
 	_puts("\n-> ");
-
-	free(header);
-}
-/*
-typedef struct meta_data_s
-{
-	char *uname;
-	char *pwd;
-	char *prompt;
-} meta_data_t;
-*/
-char *get_shell_header(void)
-{
-	/* SHELL@USER :: (PWD)*/
-	char *first_con	= "SHELL :: ";
-	char *user_name = _get_env("USER");
-	char *header    = malloc(strlen(first_con) + strlen(user_name) + 1);
-
-	header = strcpy(header, first_con);
-	header = strcat(header, user_name);
-
-	return (header);
+	free(meta->prompt);
+	free(meta->pwd);
+	free(meta);
 }
 
 /**
