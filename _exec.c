@@ -16,7 +16,6 @@ void _exec(void)
 	if (func != NULL)
 	{
 		func->f(argv);
-		set_status(0);
 		return;
 	}
 

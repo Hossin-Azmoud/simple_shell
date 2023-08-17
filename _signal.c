@@ -14,6 +14,7 @@ int _sig_int(int sig)
 	internal_sig = sig;
 	return (0);
 }
+
 /**
  * handle_signal - function that handle the signal which
  *			manage the function _sig_int

@@ -16,6 +16,7 @@ void __exit_shell(void)
 		if (code_ptr == NULL)
 		{
 			fprintf(stderr, "[ERROR] invalid number given to exit `%s`\n", argv[1]);
+			set_status(2);
 			return;
 		}
 
@@ -34,6 +35,7 @@ void clear(void)
 {
 	_puts(CLEAR_BYTES); /* Clear the terminal */
 	_puts("\033[0;0H\n"); /* Go to the starting col and row of the term. */
+	set_status(0);
 }
 
 /**
@@ -45,7 +47,7 @@ void change_dir(void)
 	char **args    = reader(GET_TOKENS);
 	int res, count = _strlen2d(args);
 	char cwd[PATH_MAX];
-	getcwd(cwd, PATH_MAX);
+	char *pwd = _get_env("PWD");
 
 	if (count == 1)
 	{
@@ -53,11 +55,13 @@ void change_dir(void)
 		if (res != 0)
 		{
 			perror("[ERROR (CD)]");
+			set_status(1);
 			return;
 		}
 
 		_set_env("PWD", ROOT);
-		_set_env("OLDPWD", cwd);
+		_set_env("OLDPWD", pwd);
+		set_status(0);
 		return;
 	}
 
@@ -67,9 +71,12 @@ void change_dir(void)
 		_puts(args[1]);
 		_putchar(' ');
 		perror(":");
+		set_status(1);
 		return;
 	}
 
-	_set_env("PWD", args[1]);
-	_set_env("OLDPWD", cwd);
+	getcwd(cwd, PATH_MAX);
+	_set_env("PWD",    cwd);
+	_set_env("OLDPWD", pwd);
+	set_status(0);
 }

@@ -11,10 +11,17 @@ void prompt_user(void)
 
 	free(header);
 }
-
+/*
+typedef struct meta_data_s
+{
+	char *uname;
+	char *pwd;
+	char *prompt;
+} meta_data_t;
+*/
 char *get_shell_header(void)
 {
-	/* SHELL@USER :: (PWD) */
+	/* SHELL@USER :: (PWD)*/
 	char *first_con	= "SHELL :: ";
 	char *user_name = _get_env("USER");
 	char *header    = malloc(strlen(first_con) + strlen(user_name) + 1);
