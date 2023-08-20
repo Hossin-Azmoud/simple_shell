@@ -63,8 +63,6 @@ void append_entry(map_t *m, char *entry, char *key, char *value)
 		
 		return;
 	}
-
-	fprintf(stderr, "invalid input was supplied to `append_entry` function.\n");
 }
 /**
  * get_value - function that get the value of map

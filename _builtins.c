@@ -56,10 +56,16 @@ static void _cd_internal(char *arg, int is_path)
 	{
 		dist = _get_env(arg);
 		if (!dist)
-		{	
-			free(pwd);
-			free(abs_path);
-			return;
+		{
+			if (_strcmp(arg, "OLDPWD") == 0)
+			{
+				dist = strdup(pwd);
+			} else
+			{
+				free(pwd);
+				free(abs_path);
+				return;
+			}
 		}
 	}
 
@@ -67,7 +73,8 @@ static void _cd_internal(char *arg, int is_path)
 	if(chdir(dist) == -1)
 	{
 		perror("cd");
-	} else {
+	} else
+	{
 		abs_path = getcwd(abs_path, PATH_MAX + 1);
 		_set_env("PWD",    abs_path);
 		_set_env("OLDPWD", pwd);

@@ -6,7 +6,6 @@
  */
 void init_environment(char *shell_)
 {
-	char *pwd, *old;
 	struct sigaction sa;
 	/* Init a signal handler. */
 	sa.sa_handler = handle_signal;
@@ -18,18 +17,6 @@ void init_environment(char *shell_)
 	init_path_manager();
 	init_state_manager();
 	set_shell_name(&shell_);
-	pwd = _get_env("PWD");
-	old = _get_env("OLDPWD");
-	
-	if (old == NULL)
-	{
-		_set_env("OLDPWD", pwd);
-		free(pwd);
-		return;
-	}
-	
-	free(pwd);
-	free(old);
 }
 
 /**
