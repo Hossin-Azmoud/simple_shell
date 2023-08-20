@@ -1,4 +1,5 @@
 #ifndef SIMPLE_SHELL_H
+#define COMMAND_NOT_FOUND_STATUS 127
 #define SIMPLE_SHELL_H
 #define EXIT_SUCCESS 0
 #define SHELL_HEADER "SHELL -> "
@@ -37,7 +38,9 @@ typedef enum shell_state_action_e
 	INCR_INDEX,
 	GET_INDEX,
 	SET_STATUS,
-	GET_STATUS
+	GET_STATUS,
+	SET_SHELL_NAME,
+	GET_SHELL_NAME
 } shell_state_action_t;
 
 /**
@@ -161,6 +164,7 @@ typedef struct shell_state_s
 	int line_idx;
 	char *c_line;
 	char **c_line_toks;
+	char shell_name[PATH_MAX];
 } shell_state_t;
 
 /**
@@ -222,14 +226,15 @@ void  _set_env(char *key, char *value);
 void  release_env_(void);
 
 /* SHELL_STATE_MANAGER */
-int  shell_state_manager(shell_state_action_t action, int payload);
+void *shell_state_manager(shell_state_action_t action, int payload, char **name);
 int  get_line_index(void);
 void inc_line_index(void);
 int  get_status(void);
 void set_status(int payload);
 void init_state_manager(void);
+char *get_shell_name(void);
+void set_shell_name(char **name);/* builtins funcs and builtins manager..*/
 
-/* builtins funcs and builtins manager..*/
 builtin_func_t *
 builtins_manager(builtins_action_t action, char *name, void (*f)(void));
 void init_builtins(void);
@@ -241,7 +246,7 @@ input_buffer_t *alloc_input_t(void);
 void *reader(reader_action_t action);
 
 /* init and deinit. */
-void init_environment(void);
+void init_environment(char *shell_);
 void uinit_environment(void);
 
 /* main */

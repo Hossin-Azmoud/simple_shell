@@ -5,7 +5,7 @@
 * @payload: the argument
 * Return: the return in switch cases
 */
-int shell_state_manager(shell_state_action_t action, int payload)
+void *shell_state_manager(shell_state_action_t action, int payload, char **name)
 {
 	static shell_state_t state;
 
@@ -13,20 +13,27 @@ int shell_state_manager(shell_state_action_t action, int payload)
 	{
 		case INIT_STATE: {
 			state.latest_status = 0;
-			state.line_idx      = 0;
+			state.line_idx      = 1;
 		} break;
 
 		case INCR_INDEX: {
 			state.line_idx++;
 		} break;
 		case GET_INDEX: {
-			return (state.line_idx);
+			return &(state.line_idx);
 		} break;
 		case SET_STATUS: {
 			state.latest_status = payload;
 		} break;
 		case GET_STATUS: {
-			return (state.latest_status);
+			return &(state.latest_status);
+		
+		} break;
+		case SET_SHELL_NAME: {
+			strcpy(state.shell_name, *name);
+		} break;
+		case GET_SHELL_NAME: {
+			return &(state.shell_name);
 		} break;
 	}
 
@@ -38,7 +45,7 @@ int shell_state_manager(shell_state_action_t action, int payload)
 */
 int get_line_index(void)
 {
-	return (shell_state_manager(GET_INDEX, 0));
+	return (*(int *)(shell_state_manager(GET_INDEX, 0, NULL)));
 }
 /**
 * inc_line_index - function that incrementate the line in of index
@@ -46,5 +53,5 @@ int get_line_index(void)
 */
 void inc_line_index(void)
 {
-	shell_state_manager(INCR_INDEX, 0);
+	shell_state_manager(INCR_INDEX, 0, NULL);
 }

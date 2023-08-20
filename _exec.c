@@ -41,7 +41,7 @@ void _exec(void)
 		return;
 	}
 
-	shell = _get_env("_");
+	shell = get_shell_name();
 	fprintf(stderr, "%s: %i: %s: not found\n", shell, get_line_index(), argv[0]);
-	free(shell);
+	set_status(COMMAND_NOT_FOUND_STATUS);
 }

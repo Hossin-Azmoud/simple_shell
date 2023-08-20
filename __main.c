@@ -3,9 +3,10 @@
 * main - entry point.
 * Return: always 0.
 */
-int main(void)
+int main(int _, char **argv)
 {
-	init_environment();
+	(void) _;	
+	init_environment(argv[0]);
 	start_shell();
 	uinit_environment();
 	return (get_status());

@@ -12,24 +12,18 @@ static meta_data_t *get_meta(void)
 	int sz;
 
 	if (meta == NULL)
-	{
-		fprintf(stderr, "couuld not allocate mem for meta_data_t\n");
 		return (NULL);
-	}
 
 	meta->uname  = _get_env("USER");
-	meta->pwd = malloc(PATH_MAX + 1);
-
-	while (realpath(_get_env("PWD"), meta->pwd) == NULL)
-	{}
-
+	meta->pwd    = _get_env("PWD");
 	meta->prompt = strdup("SHELL@"); /* note: free it */
 	sz = (strlen(meta->prompt) + strlen(meta->uname) + strlen(meta->pwd) + 7);
 	meta->prompt = realloc(meta->prompt, sz);
 	meta->prompt = strcat(meta->prompt, meta->uname);
-	meta->prompt = strcat(meta->prompt, " :: [");
+	meta->prompt = strcat(meta->prompt, "(");
 	meta->prompt = strcat(meta->prompt, meta->pwd);
-	meta->prompt = strcat(meta->prompt, "]");
+	meta->prompt = strcat(meta->prompt, ") ");
+
 	return (meta);
 }
 /**
@@ -46,9 +40,9 @@ void prompt_user(void)
 	}
 
 	_puts(meta->prompt);
-	_puts("\n-> ");
 	free(meta->prompt);
 	free(meta->pwd);
+	free(meta->uname);
 	free(meta);
 }
 
@@ -95,9 +89,12 @@ int _getline(char **buff, size_t *size, int fd)
 			} break;
 		}
 	}
+
 	if (it == 0 && nread == 0)
 		return (-1);
+
 	if (_sig_int(-1) == SIGINT)
 		return (INTRPT_CODE);
+
 	return (it);
 }

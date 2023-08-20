@@ -62,8 +62,11 @@ void map_cpy(map_t *m, char **src)
 {
 	int it;
 
-	for (it = 0; src[it]; it++)
+	for (it = 0; src[it]; ++it)
 		append_entry(m, src[it], NULL, NULL);
 
-	(m)->all[(m)->size] = NULL;
+	/* terminate the map. */
+	(m)->all[(m)->size]    = NULL;
+	(m)->keys[(m)->size]   = NULL;
+	(m)->values[(m)->size] = NULL;
 }

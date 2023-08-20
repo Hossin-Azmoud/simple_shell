@@ -16,7 +16,6 @@ void *env_manager(env_action_t action, char *key, char *value)
 	{
 		case PRINT_ENV: {
 			print_2d(env_map->all);
-
 			return (NULL);
 		} break;
 		case INIT_ENV: {

@@ -7,7 +7,7 @@
 */
 void path_manager(path_action_t action, char **cmd_loc, int *res)
 {
-	static char **path_;
+	static char **path_ = NULL;
 
 	switch (action)
 	{
@@ -29,6 +29,49 @@ void path_manager(path_action_t action, char **cmd_loc, int *res)
 	}
 }
 /**
+ * is_relative - checks if a path (p) is relative or not.
+ * @p: path.
+ * Return: (1) if relative else (0)
+ */
+static int is_relative(char *p)
+{
+	char *ptr = p;
+	if (ptr == NULL)
+		return (0);
+
+	switch(*ptr)
+	{
+		case '.': {
+			ptr++;
+			if (*ptr == '/')
+			{
+				return (1);
+			}
+
+			if (*ptr == '.' ) /* .. */
+			{
+				ptr++;
+				if (*ptr == '/')
+				{
+					return (1);
+				}
+			}
+
+			return (0);
+		} break;
+		case '/': {
+			return (1);
+		} break;
+		default: {
+			
+		} break;
+	}
+
+	return (0);
+
+}
+
+/**
 * find_cmd - function that find the path
 * @cmd_loc: check the argument
 * @paths: the path or the argument
@@ -40,12 +83,22 @@ void find_cmd(char **cmd_loc, char **paths, int *result_)
 	int res;
 	char *copy = NULL;
 	int path_size;
-
-	res = access(*cmd_loc, X_OK);
-
-	if (res != -1)
+	
+	if (is_relative(*cmd_loc))
 	{
-		*result_ = 1;
+		res = access(*cmd_loc, X_OK);
+		if (res != -1)
+		{
+			*result_ = 1;
+			return;
+		}
+		*result_ = 0;
+		return;
+	}
+
+	if (paths == NULL)
+	{
+		*result_ = 0;
 		return;
 	}
 

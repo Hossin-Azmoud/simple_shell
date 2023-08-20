@@ -39,44 +39,70 @@ void clear(void)
 }
 
 /**
+ * _cd_internal - core function that changes directory.
+ * @arg: the dir path or env key to go to.
+ * @is_path: wether is the arg is a path or a key.
+ * Return: the return value is (void)
+ */
+static void _cd_internal(char *arg, int is_path)
+{
+	char *abs_path = malloc(PATH_MAX + 1);
+	char *dist     = NULL;
+	char *pwd      = _get_env("PWD");
+
+	if (is_path)
+		dist = strdup(arg);
+	else
+	{
+		dist = _get_env(arg);
+		if (!dist)
+		{	
+			free(pwd);
+			free(abs_path);
+			return;
+		}
+	}
+
+
+	if(chdir(dist) == -1)
+	{
+		perror("cd");
+	} else {
+		abs_path = getcwd(abs_path, PATH_MAX + 1);
+		_set_env("PWD",    abs_path);
+		_set_env("OLDPWD", pwd);
+		if (_strcmp(arg, "OLDPWD") == 0)
+		{
+			_puts(abs_path);
+			_putchar('\n');
+		}
+	}
+
+	free(pwd);
+	free(dist);
+	free(abs_path);
+}
+/**
  * change_dir - function that change directory
  * Return: Always 0
  */
 void change_dir(void)
 {
-	char **args    = reader(GET_TOKENS);
-	int res, count = _strlen2d(args);
-	char cwd[PATH_MAX];
-	char *pwd = _get_env("PWD");
+	char **args = reader(GET_TOKENS);
+	int  count  = _strlen2d(args);
+	char *dist  = NULL;
 
 	if (count == 1)
 	{
-		res = chdir(ROOT);
-		if (res != 0)
-		{
-			perror("[ERROR (CD)]");
-			set_status(1);
-			return;
-		}
-
-		_set_env("PWD", ROOT);
-		_set_env("OLDPWD", pwd);
-		set_status(0);
+		_cd_internal("HOME", 0);
 		return;
 	}
 
-	res = chdir(args[1]);
-	if (res != 0)
-	{
-		_puts(args[1]);
-		_putchar(' ');
-		perror(":");
-		set_status(1);
-		return;
-	}
-
-	getcwd(cwd, PATH_MAX);
-	_set_env("PWD",    cwd);
-	_set_env("OLDPWD", pwd);
-	set_status(0);
+	dist = args[1];
+	if (_strcmp(dist, "-") == 0)
+		_cd_internal("OLDPWD", 0);
+	else if (_strcmp(dist, "~") == 0)
+		_cd_internal("HOME", 0);
+	else
+		_cd_internal(dist, 1);
 }

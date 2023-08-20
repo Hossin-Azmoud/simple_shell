@@ -26,10 +26,7 @@ char **get_tokenized_path(void)
 	char **out;
 
 	if (!path)
-	{
-		_puts("err: path not found.\n");
 		return (NULL);
-	}
 
 	out = split_by_delim(path, ":");
 	free(path);

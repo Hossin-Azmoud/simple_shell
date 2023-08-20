@@ -31,7 +31,7 @@ int _fputs(char *s, int fd)
 	if (s == NULL)
 		return (_puts("(null)"));
 	else
-		return (write(fd, s, strlen(s)));
+		return (write(fd, s, _strlen(s)));
 }
 /**
 * _puts - function that put the string
@@ -49,7 +49,7 @@ int _puts(char *s)
 */
 int _putchar(char c)
 {
-	return (_fputs(&c, STDOUT_FILENO));
+	return (write(STDOUT_FILENO, &c, 1));
 }
 /**
 * trim - function that put the string

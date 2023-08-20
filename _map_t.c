@@ -32,14 +32,20 @@ void append_entry(map_t *m, char *entry, char *key, char *value)
 
 	if (!key && !value && entry)
 	{
-		kv                     = split_by_delim(entry, "=");
+		kv  = split_by_delim(entry, "=");
 		(m)->all[idx]    = malloc(strlen(entry) + 1);
-		(m)->keys[idx]   = malloc(strlen(kv[0]) + 1);
-		(m)->values[idx] = malloc(strlen(kv[1]) + 1);
-
 		(m)->all[idx]    = strcpy((m)->all[idx], entry);
-		(m)->values[idx] = strcpy((m)->values[(m->size)], kv[1]);
+		(m)->keys[idx]   = malloc(strlen(kv[0]) + 1);
 		(m)->keys[idx]   = strcpy((m)->keys[idx], kv[0]);
+	
+		if (kv[1])
+		{
+			(m)->values[idx] = malloc(strlen(kv[1]) + 1);
+			(m)->values[idx] = strcpy((m)->values[(m->size)], kv[1]);
+		} else
+		{
+			(m)->values[idx] = NULL; 
+		}
 
 		free_2d(kv);
 		(m)->size++;
@@ -49,13 +55,12 @@ void append_entry(map_t *m, char *entry, char *key, char *value)
 	{
 		(m)->keys[idx]   = strdup(key);
 		(m)->values[idx] = strdup(value);
-
 		(m)->all[idx]    = malloc(strlen(key) + strlen(value) + 2);
 		(m)->all[idx]    = strcpy((m)->all[idx], key);
 		(m)->all[idx]    = strcat((m)->all[idx], "=");
 		(m)->all[idx]    = strcat((m)->all[idx], value);
 		(m)->size++;
-
+		
 		return;
 	}
 
@@ -74,7 +79,11 @@ char *get_value(const map_t *m, char *key)
 	while ((m)->keys[iter])
 	{
 		if (_strcmp((m)->keys[iter], key) == 0)
-			return (strdup((m)->values[iter]));
+		{
+			if (((m)->values[iter]))
+				return (strdup((m)->values[iter]));
+			return (NULL);
+		}
 
 		iter++;
 	}
