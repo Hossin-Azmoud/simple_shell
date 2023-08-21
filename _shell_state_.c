@@ -3,6 +3,7 @@
 * shell_state_manager - function that manage the shell
 * @action: the action or the argument
 * @payload: the argument
+* @name: the argument
 * Return: the return in switch cases
 */
 void
