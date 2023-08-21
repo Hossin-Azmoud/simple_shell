@@ -37,14 +37,14 @@ void append_entry(map_t *m, char *entry, char *key, char *value)
 		(m)->all[idx]    = strcpy((m)->all[idx], entry);
 		(m)->keys[idx]   = malloc(strlen(kv[0]) + 1);
 		(m)->keys[idx]   = strcpy((m)->keys[idx], kv[0]);
-	
+
 		if (kv[1])
 		{
 			(m)->values[idx] = malloc(strlen(kv[1]) + 1);
 			(m)->values[idx] = strcpy((m)->values[(m->size)], kv[1]);
 		} else
 		{
-			(m)->values[idx] = NULL; 
+			(m)->values[idx] = NULL;
 		}
 
 		free_2d(kv);
@@ -60,7 +60,7 @@ void append_entry(map_t *m, char *entry, char *key, char *value)
 		(m)->all[idx]    = strcat((m)->all[idx], "=");
 		(m)->all[idx]    = strcat((m)->all[idx], value);
 		(m)->size++;
-		
+
 		return;
 	}
 }

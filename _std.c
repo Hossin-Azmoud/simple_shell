@@ -89,12 +89,10 @@ int _getline(char **buff, size_t *size, int fd)
 			} break;
 		}
 	}
-
 	if (it == 0 && nread == 0)
 		return (-1);
 
 	if (_sig_int(-1) == SIGINT)
 		return (INTRPT_CODE);
-
 	return (it);
 }

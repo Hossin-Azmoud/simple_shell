@@ -36,10 +36,11 @@ void path_manager(path_action_t action, char **cmd_loc, int *res)
 static int is_relative(char *p)
 {
 	char *ptr = p;
+
 	if (ptr == NULL)
 		return (0);
 
-	switch(*ptr)
+	switch (*ptr)
 	{
 		case '.': {
 			ptr++;
@@ -48,7 +49,7 @@ static int is_relative(char *p)
 				return (1);
 			}
 
-			if (*ptr == '.' ) /* .. */
+			if (*ptr == '.') /* .. */
 			{
 				ptr++;
 				if (*ptr == '/')
@@ -63,7 +64,7 @@ static int is_relative(char *p)
 			return (1);
 		} break;
 		default: {
-			
+
 		} break;
 	}
 
@@ -83,7 +84,7 @@ void find_cmd(char **cmd_loc, char **paths, int *result_)
 	int res;
 	char *copy = NULL;
 	int path_size;
-	
+
 	if (is_relative(*cmd_loc))
 	{
 		res = access(*cmd_loc, X_OK);

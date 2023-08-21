@@ -9,7 +9,6 @@
  */
 void *env_manager(env_action_t action, char *key, char *value)
 {
-
 	static map_t *env_map;
 
 	switch (action)
@@ -24,8 +23,7 @@ void *env_manager(env_action_t action, char *key, char *value)
 			{
 				map_cpy(env_map, __environ);
 				return (NULL);
-			} 
-
+			}
 			set_value(env_map, "SHLVL", "0");
 		} break;
 		case SET_ENTRY: {
@@ -50,7 +48,6 @@ void *env_manager(env_action_t action, char *key, char *value)
 			printf("UNREACHABLE.\n");
 			break;
 	}
-
 	return (NULL);
 }
 

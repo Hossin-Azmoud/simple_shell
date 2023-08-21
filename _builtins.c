@@ -68,9 +68,7 @@ static void _cd_internal(char *arg, int is_path)
 			}
 		}
 	}
-
-
-	if(chdir(dist) == -1)
+	if (chdir(dist) == -1)
 	{
 		perror("cd");
 	} else
@@ -84,7 +82,6 @@ static void _cd_internal(char *arg, int is_path)
 			_putchar('\n');
 		}
 	}
-
 	free(pwd);
 	free(dist);
 	free(abs_path);

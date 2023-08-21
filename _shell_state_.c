@@ -5,7 +5,8 @@
 * @payload: the argument
 * Return: the return in switch cases
 */
-void *shell_state_manager(shell_state_action_t action, int payload, char **name)
+void
+*shell_state_manager(shell_state_action_t action, int payload, char **name)
 {
 	static shell_state_t state;
 
@@ -15,25 +16,23 @@ void *shell_state_manager(shell_state_action_t action, int payload, char **name)
 			state.latest_status = 0;
 			state.line_idx      = 1;
 		} break;
-
 		case INCR_INDEX: {
 			state.line_idx++;
 		} break;
 		case GET_INDEX: {
-			return &(state.line_idx);
+			return (&(state.line_idx));
 		} break;
 		case SET_STATUS: {
 			state.latest_status = payload;
 		} break;
 		case GET_STATUS: {
-			return &(state.latest_status);
-		
+			return (&(state.latest_status));
 		} break;
 		case SET_SHELL_NAME: {
 			strcpy(state.shell_name, *name);
 		} break;
 		case GET_SHELL_NAME: {
-			return &(state.shell_name);
+			return (&(state.shell_name));
 		} break;
 	}
 

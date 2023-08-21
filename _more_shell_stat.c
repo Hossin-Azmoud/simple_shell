@@ -23,12 +23,18 @@ void init_state_manager(void)
 {
 	shell_state_manager(INIT_STATE, 0, NULL);
 }
-
+/**
+* set_shell_name - function that initial the state manage
+* @name: the name
+*/
 void set_shell_name(char **name)
 {
 	shell_state_manager(SET_SHELL_NAME, 0, name);
 }
-
+/**
+* get_shell_name - function that initial the state manage
+* Return: the shell state manager
+*/
 char *get_shell_name(void)
 {
 	return ((char *) shell_state_manager(GET_SHELL_NAME, 0, NULL));

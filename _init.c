@@ -3,6 +3,7 @@
 /**
  * init_environment - function that initial
  *		the environment
+ * @shell_: the argument
  */
 void init_environment(char *shell_)
 {
