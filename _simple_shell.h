@@ -223,6 +223,8 @@ void  append_entry(map_t *m, char *entry, char *key, char *value);
 void  map_cpy(map_t *m, char **src);
 char  *get_value(const map_t *m, char *key);
 void  set_value(map_t *m, char *key, char *value);
+int   find_entry_index(map_t *m, char *k);
+map_t *delete_entry(map_t *m, char *k);
 
 /* PATH MANAGER */
 void path_manager(path_action_t action, char **cmd_loc, int *res);
@@ -271,5 +273,7 @@ void start_shell(void);
 void __exit_shell(void);
 void change_dir(void);
 void clear(void);
+void unset__env(void);
+void set__env(void);
 
 #endif /* SIMPLE_SHELL_H */

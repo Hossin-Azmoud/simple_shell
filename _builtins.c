@@ -1,8 +1,8 @@
 #include "_simple_shell.h"
+
 /**
  * __exit_shell - function that exit shell
  */
-
 void __exit_shell(void)
 {
 	int size = 0, code = (get_status()), ln = get_line_index();
@@ -120,3 +120,4 @@ void change_dir(void)
 	else
 		_cd_internal(dist, 1);
 }
+

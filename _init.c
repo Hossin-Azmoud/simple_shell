@@ -29,6 +29,8 @@ void init_builtins(void)
 	set_builtin("path", print_path);
 	set_builtin("cd", change_dir);
 	set_builtin("clear", clear);
+	set_builtin("unsetenv", unset__env);
+	set_builtin("setenv", set__env);
 }
 
 /**

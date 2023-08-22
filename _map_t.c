@@ -49,8 +49,6 @@ void append_entry(map_t *m, char *entry, char *key, char *value)
 
 		free_2d(kv);
 		(m)->size++;
-		return;
-
 	} else if (!entry && key && value)
 	{
 		(m)->keys[idx]   = _strdup(key);
@@ -60,9 +58,11 @@ void append_entry(map_t *m, char *entry, char *key, char *value)
 		(m)->all[idx]    = _strcat((m)->all[idx], "=");
 		(m)->all[idx]    = _strcat((m)->all[idx], value);
 		(m)->size++;
-
-		return;
 	}
+	/* terminate the map. */
+	(m)->all[(m)->size]    = NULL;
+	(m)->keys[(m)->size]   = NULL;
+	(m)->values[(m)->size] = NULL;
 }
 /**
 * map_cpy - function that copy the map
@@ -80,4 +80,60 @@ void map_cpy(map_t *m, char **src)
 	(m)->all[(m)->size]    = NULL;
 	(m)->keys[(m)->size]   = NULL;
 	(m)->values[(m)->size] = NULL;
+}
+
+
+/**
+* find_entry_index - finds the index of a certain entry. (linear)
+* @m: map in which we will search.
+* @k: the key.
+* Return: the index if found, else (-1)
+*/
+int find_entry_index(map_t *m, char *k)
+{
+	size_t iterator = 0;
+
+	while (m->keys[iterator] != NULL)
+	{
+		if (_strcmp(m->keys[iterator], k) == 0)
+			return (iterator);
+
+		iterator++;
+	}
+
+	return (-1);
+}
+
+/**
+* delete_entry - a function to wipe an entry.
+* @m: the map to overwrite.
+* @k: the key.
+* Return: the new map.
+*/
+map_t *delete_entry(map_t *m, char *k)
+{
+	int idx = find_entry_index(m, k);
+	int it;
+	map_t *nmap;
+
+	if (idx == -1)
+	{
+		return (m);
+	}
+
+	nmap = create_map(ENV_MAX);
+	for (it = 0; (m)->all[it]; ++it)
+	{
+		if (it != idx)
+		{
+			append_entry(nmap, (m)->all[it], NULL, NULL);
+	
+		}
+	}
+
+	(nmap)->all[(nmap)->size]    = NULL;
+	(nmap)->keys[(nmap)->size]   = NULL;
+	(nmap)->values[(nmap)->size] = NULL;
+	distroy_map(m);
+	return (nmap);
 }

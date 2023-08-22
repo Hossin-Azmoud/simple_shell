@@ -36,7 +36,7 @@ void *env_manager(env_action_t action, char *key, char *value)
 			return (env_map->keys);
 		} break;
 		case DELETE_ENTRY: {
-			printf("UNREACHABLE, not implemented..\n");
+			env_map = delete_entry(env_map, key);
 		} break;
 		case CLEAR_ENV: {
 			distroy_map(env_map);
@@ -53,7 +53,6 @@ void *env_manager(env_action_t action, char *key, char *value)
 /**
  * print_env - function that print the env
  */
-
 void print_env(void)
 {
 	env_manager(PRINT_ENV, NULL, NULL);
