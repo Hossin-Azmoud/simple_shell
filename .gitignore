@@ -6,5 +6,9 @@ hsh
 /tests
 test.c
 test*
+
 # input files
 input
+
+# temp files
+tmp
