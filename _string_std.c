@@ -85,4 +85,3 @@ int trim(char **s)
 	*s = buff;
 	return (it);
 }
-

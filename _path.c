@@ -7,7 +7,7 @@
 */
 void path_manager(path_action_t action, char **cmd_loc, int *res)
 {
-	static char **path_ = NULL;
+	static char **path_ = { 0 };
 
 	switch (action)
 	{
@@ -80,10 +80,8 @@ static int is_relative(char *p)
 */
 void find_cmd(char **cmd_loc, char **paths, int *result_)
 {
-	int i = 0;
-	int res;
+	int i = 0, res;
 	char *copy = NULL;
-	int path_size;
 
 	if (is_relative(*cmd_loc))
 	{
@@ -103,32 +101,19 @@ void find_cmd(char **cmd_loc, char **paths, int *result_)
 		return;
 	}
 
-	while (paths[i] != NULL)
+	for (i = 0; paths[i] != NULL; ++i, copy = NULL)
 	{
-		path_size = (strlen(paths[i]) + strlen(*cmd_loc) + 2);
-		copy      = (char *) malloc(path_size);
-
-		strcpy(copy, paths[i]);
-		strcat(copy, "/");
-		strcat(copy, *cmd_loc);
-
-		res = access(copy, X_OK);
-
+		copy = _join_with_path(paths[i], *cmd_loc);
+		res  = access(copy, X_OK);
 		if (res != -1)
 		{
 			free(*cmd_loc);
-			*cmd_loc = malloc(path_size);
-			strcpy(*cmd_loc, copy);
-			free(copy);
+			*cmd_loc = copy;
 			*result_ = 1;
 			return;
 		}
-
-		i++;
 		free(copy);
-		copy = NULL;
 	}
-
 	*result_ = 0;
 }
 /**

@@ -1,6 +1,6 @@
 #ifndef SIMPLE_SHELL_H
-#define COMMAND_NOT_FOUND_STATUS 127
 #define SIMPLE_SHELL_H
+#define COMMAND_NOT_FOUND_STATUS 127
 #define EXIT_SUCCESS 0
 #define SHELL_HEADER "SHELL -> "
 #define INTRPT_CODE  -20
@@ -12,6 +12,7 @@
 #define ROOT "/"
 #define PATH_MAX 4096
 /* #define SEQ_START_BYTE '\x1b' for handling keys.. */
+
 
 #include <signal.h>
 #include <stdio.h>
@@ -31,6 +32,8 @@
  * @GET_INDEX:  get line index.
  * @SET_STATUS: set status.
  * @GET_STATUS: get status.
+ * @SET_SHELL_NAME: set the shell-s name
+ * @GET_SHELL_NAME: get the shell-s name
  */
 typedef enum shell_state_action_e
 {
@@ -156,6 +159,7 @@ typedef struct builtin_func_s
  * @line_idx:      current line index.
  * @c_line:        current line input.
  * @c_line_toks:   current tokens
+ * @shell_name:    current shell name.
  */
 
 typedef struct shell_state_s
@@ -180,13 +184,14 @@ typedef struct meta_data_s
 	char *prompt;
 } meta_data_t;
 
-char *get_shell_header(void);
+char  *get_shell_header(void);
 int   _strcmp(char *s1, char *s2);
 int   _strlen(char *s);
 int   _strlen2d(char **array);
 int   _fputs(char *s, int fd);
 int   _putchar(char c);
 int   _puts(char *s);
+char  *_join_with_path(char *path, char *file_name);
 int   _getline(char **buff, size_t *size, int fd);
 void  prompt_user(void);
 void  free_2d(char **Array);
@@ -226,14 +231,15 @@ void  _set_env(char *key, char *value);
 void  release_env_(void);
 
 /* SHELL_STATE_MANAGER */
-void *shell_state_manager(shell_state_action_t action, int payload, char **name);
+void *
+shell_state_manager(shell_state_action_t action, int payload, char **name);
 int  get_line_index(void);
 void inc_line_index(void);
 int  get_status(void);
 void set_status(int payload);
 void init_state_manager(void);
 char *get_shell_name(void);
-void set_shell_name(char **name);/* builtins funcs and builtins manager..*/
+void set_shell_name(char **name);
 
 builtin_func_t *
 builtins_manager(builtins_action_t action, char *name, void (*f)(void));
