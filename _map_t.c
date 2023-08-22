@@ -127,7 +127,6 @@ map_t *delete_entry(map_t *m, char *k)
 		if (it != idx)
 		{
 			append_entry(nmap, (m)->all[it], NULL, NULL);
-	
 		}
 	}
 

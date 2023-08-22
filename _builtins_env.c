@@ -8,10 +8,10 @@ void set__env(void)
 	/* setenv VARIABLE VALUE */
 	char **args = reader(GET_TOKENS);
 	int  count  = _strlen2d(args);
-	
+
 	if (count >= 3)
 	{
-		_set_env(args[1], args[2]);	
+		_set_env(args[1], args[2]);
 		return;
 	}
 
