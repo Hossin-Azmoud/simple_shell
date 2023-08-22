@@ -13,7 +13,7 @@ char *exclude_comments(char *buff)
 
 	if (!buff)
 		return (buff);
-	
+
 	new = malloc(_strlen(buff) + 1);
 	while (buff[it] && buff[it] != '#')
 	{

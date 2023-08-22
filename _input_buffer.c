@@ -36,10 +36,8 @@ void *reader(reader_action_t action)
 		case READ: {
 			if (isatty(STDIN_FILENO) == 1)
 				prompt_user();
-
 			in = alloc_input_t();
 			in->size = _getline(&(in->buff), &cap, STDIN_FILENO);
-
 			if (in->size >= 1)
 			{
 				in->size = trim(&(in->buff));
@@ -63,9 +61,7 @@ void *reader(reader_action_t action)
 			}
 		} break;
 		default: {
-			return (NULL);
 		} break;
 	}
-
 	return (NULL);
 }
