@@ -28,6 +28,16 @@ void path_manager(path_action_t action, char **cmd_loc, int *res)
 			break;
 	}
 }
+
+/**
+* print_path - function that print the path
+*
+*/
+void  print_path(void)
+{
+	path_manager(PRINT_PATH, NULL, NULL);
+}
+
 /**
  * is_relative - checks if a path (p) is relative or not.
  * @p: path.
@@ -116,20 +126,3 @@ void find_cmd(char **cmd_loc, char **paths, int *result_)
 	}
 	*result_ = 0;
 }
-/**
-* init_path_manager - function that initial the path
-*
-*/
-void init_path_manager(void)
-{
-	path_manager(INIT_PATH, NULL, NULL);
-}
-/**
-* release_path - function that release the path
-*
-*/
-void  release_path(void)
-{
-	path_manager(CLEAR_PATH, NULL, NULL);
-}
-

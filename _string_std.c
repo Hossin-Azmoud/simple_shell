@@ -51,6 +51,7 @@ int _putchar(char c)
 {
 	return (write(STDOUT_FILENO, &c, 1));
 }
+
 /**
 * trim - function that put the ing
 * @s: the ing or the argument

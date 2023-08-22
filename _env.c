@@ -50,49 +50,12 @@ void *env_manager(env_action_t action, char *key, char *value)
 	}
 	return (NULL);
 }
-
 /**
- * release_env_ - function that release enviromnent
- *
+ * print_env - function that print the env
  */
 
-void release_env_(void)
+void print_env(void)
 {
-	env_manager(
-		CLEAR_ENV,
-		NULL,
-		NULL
-	);
+	env_manager(PRINT_ENV, NULL, NULL);
 }
 
-/**
- * _get_env - function get the enviromnent
- * @key: argument
- * Return: the enviromnent manager function
- *
- */
-
-char *_get_env(char *key)
-{
-	return ((char *) env_manager(
-		GET_VALUE,
-		key,
-		NULL
-	));
-}
-
-/**
- * _set_env - function that set the enviromnent
- * @key: check the argument
- * @value: check the argument
- *
- */
-
-void _set_env(char *key, char *value)
-{
-	env_manager(
-		SET_ENTRY,
-		key,
-		value
-	);
-}

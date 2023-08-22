@@ -14,14 +14,3 @@ int main(int _, char **argv)
 	return (get_status());
 }
 
-int _main()
-{
-	char *some  = strdup("Hossin ");	
-	char *other = "azmoud!";
-
-	some = _strcat(some, other);
-
-	printf("some: %s\n", some);
-	free(some);
-	return (0);
-}

@@ -18,8 +18,7 @@ void _exec(void)
 		func->f(argv);
 		return;
 	}
-
-	resolve_command_path(&argv[0], &res);
+	path_manager(FIND_CMD, &argv[0], &res);
 	if (res)
 	{
 		pid = fork();
@@ -30,8 +29,8 @@ void _exec(void)
 			{
 				perror("[ERROR]");
 				reader(FREE);
-				release_env_();
-				release_path();
+				distroy_path();
+				distroy_env_();
 				exit(1);
 			}
 			exit(code);

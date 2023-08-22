@@ -7,7 +7,6 @@
  * @f: check the arg
  * Return: function or null
  */
-
 builtin_func_t
 *builtins_manager(builtins_action_t action, char *name, void (*f)())
 {
@@ -57,42 +56,4 @@ builtin_func_t
 	}
 
 	return (NULL);
-}
-
-
-/**
- * init_builtins - function that manage init in builts
- */
-
-void init_builtins(void)
-{
-	builtins_manager(INIT_BUILTN, NULL, NULL);
-
-	set_builtin("exit", __exit_shell);
-	set_builtin("env",  print_env);
-	set_builtin("path", print_path);
-	set_builtin("cd", change_dir);
-	set_builtin("clear", clear);
-}
-
-/**
- * get_builtin - function that get built
- * @name: check the arg
- * Return: the function of builtins
- */
-
-builtin_func_t *get_builtin(char *name)
-{
-	return (builtins_manager(GET_BUILTN, name, NULL));
-}
-
-/**
- * set_builtin - function that set builtins
- * @name: check the arg
- * @f: check the arg
- */
-
-void set_builtin(char *name, void (*f)())
-{
-	builtins_manager(SET_BUILTN, name, f);
 }

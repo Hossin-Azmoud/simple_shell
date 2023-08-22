@@ -1,6 +1,32 @@
 #include "_simple_shell.h"
 
 /**
+* distroy_map - function distroying the map
+* @m: the argument of the map
+*/
+void distroy_map(map_t *m)
+{
+	free_n2d((m)->keys,   (m)->size);
+	free_n2d((m)->values, (m)->size);
+	free_n2d((m)->all,	  (m)->size);
+	free((m));
+}
+
+/**
+ * distroy_env_ - function that release enviromnent
+ * Return: void
+ */
+
+void distroy_env_(void)
+{
+	env_manager(
+		CLEAR_ENV,
+		NULL,
+		NULL
+	);
+}
+
+/**
 * free_n2d - function free the array
 * @Array: the array will be free
 * @n: the argument or index
@@ -42,3 +68,14 @@ void free_2d(char **Array)
 
 	free(Array);
 }
+
+/**
+* distroy_path - function that release the path
+* Return: void
+*/
+
+void distroy_path(void)
+{
+	path_manager(CLEAR_PATH, NULL, NULL);
+}
+

@@ -227,9 +227,8 @@ void  set_value(map_t *m, char *key, char *value);
 void path_manager(path_action_t action, char **cmd_loc, int *res);
 void find_cmd(char **cmd_loc, char **paths, int *result_);
 void init_path_manager(void);
-void resolve_command_path(char **old_path, int *res);
 void print_path(void);
-void release_path(void);
+void distroy_path(void);
 
 /* ENV MANAGER */
 void  *env_manager(env_action_t action, char *key, char *value);
@@ -238,7 +237,7 @@ void  print_env(void);
 map_t *get_envp_map(void);
 char  *_get_env(char *key);
 void  _set_env(char *key, char *value);
-void  release_env_(void);
+void  distroy_env_(void);
 
 /* SHELL_STATE_MANAGER */
 void *
@@ -258,7 +257,6 @@ void set_builtin(char *name, void (*f)(void));
 builtin_func_t *get_builtin(char *name);
 
 /* input managing. */
-input_buffer_t *alloc_input_t(void);
 void *reader(reader_action_t action);
 
 /* init and deinit. */

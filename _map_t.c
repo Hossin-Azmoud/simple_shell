@@ -65,26 +65,19 @@ void append_entry(map_t *m, char *entry, char *key, char *value)
 	}
 }
 /**
- * get_value - function that get the value of map
- * @m : the map
- * @key: the argument key
- * Return: the value we want
- */
-char *get_value(const map_t *m, char *key)
+* map_cpy - function that copy the map
+* @m: the map
+* @src: the source we want to copy
+*/
+void map_cpy(map_t *m, char **src)
 {
-	int iter = 0;
+	int it;
 
-	while ((m)->keys[iter])
-	{
-		if (_strcmp((m)->keys[iter], key) == 0)
-		{
-			if (((m)->values[iter]))
-				return (_strdup((m)->values[iter]));
-			return (NULL);
-		}
+	for (it = 0; src[it]; ++it)
+		append_entry(m, src[it], NULL, NULL);
 
-		iter++;
-	}
-
-	return (NULL);
+	/* terminate the map. */
+	(m)->all[(m)->size]    = NULL;
+	(m)->keys[(m)->size]   = NULL;
+	(m)->values[(m)->size] = NULL;
 }

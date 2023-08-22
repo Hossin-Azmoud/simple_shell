@@ -1,4 +1,29 @@
 #include "_simple_shell.h"
+/**
+ * _set_env - function that set the enviromnent
+ * @key: check the argument
+ * @value: check the argument
+ * Return: Void!
+ */
+void _set_env(char *key, char *value)
+{
+	env_manager(
+		SET_ENTRY,
+		key,
+		value
+	);
+}
+
+/**
+ * set_builtin - function that set builtins
+ * @name: check the arg
+ * @f: check the arg
+ * Return: Void
+ */
+void set_builtin(char *name, void (*f)())
+{
+	builtins_manager(SET_BUILTN, name, f);
+}
 
 /**
  * set_value - function that get the value of map
@@ -41,32 +66,3 @@ void set_value(map_t *m, char *key, char *value)
 	append_entry(m, NULL, key, value);
 }
 
-/**
-* distroy_map - function distroying the map
-* @m: the argument of the map
-*/
-void distroy_map(map_t *m)
-{
-	free_n2d((m)->keys,   (m)->size);
-	free_n2d((m)->values, (m)->size);
-	free_n2d((m)->all,	  (m)->size);
-	free((m));
-}
-
-/**
-* map_cpy - function that copy the map
-* @m: the map
-* @src: the source we want to copy
-*/
-void map_cpy(map_t *m, char **src)
-{
-	int it;
-
-	for (it = 0; src[it]; ++it)
-		append_entry(m, src[it], NULL, NULL);
-
-	/* terminate the map. */
-	(m)->all[(m)->size]    = NULL;
-	(m)->keys[(m)->size]   = NULL;
-	(m)->values[(m)->size] = NULL;
-}

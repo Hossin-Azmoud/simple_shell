@@ -1,13 +1,10 @@
 #include "_simple_shell.h"
 /**
- * *alloc_input_t - function allocate the memory to
- *	the inputs
- *
+ * alloc_input_t - function allocate the memory to the inputs
  * Return: the inputs with the allocated memory
  */
-input_buffer_t *alloc_input_t(void)
+static input_buffer_t *alloc_input_t(void)
 {
-
 	input_buffer_t *in = malloc(sizeof(input_buffer_t));
 
 	if (in == NULL)
@@ -26,7 +23,6 @@ input_buffer_t *alloc_input_t(void)
  * @action: check the argument
  * Return: to the condition
  */
-
 void *reader(reader_action_t action)
 {
 	static input_buffer_t *in = { 0 };
