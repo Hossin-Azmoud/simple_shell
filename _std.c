@@ -17,7 +17,7 @@ static meta_data_t *get_meta(void)
 	meta->uname  = _get_env("USER");
 	meta->pwd    = _get_env("PWD");
 	meta->prompt = strdup("SHELL@"); /* note: free it */
-	sz = (strlen(meta->prompt) + strlen(meta->uname) + strlen(meta->pwd) + 7);
+	sz = (_strlen(meta->prompt) + _strlen(meta->uname) + _strlen(meta->pwd) + 7);
 	meta->prompt = realloc(meta->prompt, sz);
 	meta->prompt = strcat(meta->prompt, meta->uname);
 	meta->prompt = strcat(meta->prompt, "(");

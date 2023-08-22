@@ -74,10 +74,10 @@ char **split_by_delim(char *buffer,  char *delim)
 	char **tokens;
 	char *bcopy;
 
-	tokens  = malloc(sizeof(char *) * cap);
-	bcopy   = malloc(_strlen(buffer) + 1);
-	bcopy = strcpy(bcopy, buffer);
-	tmp   = strtok(bcopy, delim);
+	tokens = malloc(sizeof(char *) * cap);
+	bcopy  = malloc(_strlen(buffer) + 1);
+	bcopy  = _strcpy(bcopy, buffer);
+	tmp    = strtok(bcopy, delim);
 
 	while (tmp != NULL)
 	{
@@ -87,8 +87,8 @@ char **split_by_delim(char *buffer,  char *delim)
 			cap *= 2;
 		}
 
-		(tokens)[it] = malloc(strlen(tmp) + 1);
-		(tokens)[it] = strcpy((tokens)[it], tmp);
+		(tokens)[it] = malloc(_strlen(tmp) + 1);
+		(tokens)[it] = _strcpy((tokens)[it], tmp);
 		tmp          = strtok(NULL, delim);
 		it++;
 	}

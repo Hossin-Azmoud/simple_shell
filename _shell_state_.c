@@ -30,7 +30,7 @@ void
 			return (&(state.latest_status));
 		} break;
 		case SET_SHELL_NAME: {
-			strcpy(state.shell_name, *name);
+			_strcpy(state.shell_name, *name);
 		} break;
 		case GET_SHELL_NAME: {
 			return (&(state.shell_name));

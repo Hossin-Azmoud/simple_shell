@@ -33,15 +33,15 @@ void append_entry(map_t *m, char *entry, char *key, char *value)
 	if (!key && !value && entry)
 	{
 		kv  = split_by_delim(entry, "=");
-		(m)->all[idx]    = malloc(strlen(entry) + 1);
-		(m)->all[idx]    = strcpy((m)->all[idx], entry);
-		(m)->keys[idx]   = malloc(strlen(kv[0]) + 1);
-		(m)->keys[idx]   = strcpy((m)->keys[idx], kv[0]);
+		(m)->all[idx]    = malloc(_strlen(entry) + 1);
+		(m)->all[idx]    = _strcpy((m)->all[idx], entry);
+		(m)->keys[idx]   = malloc(_strlen(kv[0]) + 1);
+		(m)->keys[idx]   = _strcpy((m)->keys[idx], kv[0]);
 
 		if (kv[1])
 		{
-			(m)->values[idx] = malloc(strlen(kv[1]) + 1);
-			(m)->values[idx] = strcpy((m)->values[(m->size)], kv[1]);
+			(m)->values[idx] = malloc(_strlen(kv[1]) + 1);
+			(m)->values[idx] = _strcpy((m)->values[(m->size)], kv[1]);
 		} else
 		{
 			(m)->values[idx] = NULL;
@@ -55,8 +55,8 @@ void append_entry(map_t *m, char *entry, char *key, char *value)
 	{
 		(m)->keys[idx]   = strdup(key);
 		(m)->values[idx] = strdup(value);
-		(m)->all[idx]    = malloc(strlen(key) + strlen(value) + 2);
-		(m)->all[idx]    = strcpy((m)->all[idx], key);
+		(m)->all[idx]    = malloc(_strlen(key) + _strlen(value) + 2);
+		(m)->all[idx]    = _strcpy((m)->all[idx], key);
 		(m)->all[idx]    = strcat((m)->all[idx], "=");
 		(m)->all[idx]    = strcat((m)->all[idx], value);
 		(m)->size++;

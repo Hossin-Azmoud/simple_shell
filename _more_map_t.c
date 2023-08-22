@@ -12,17 +12,17 @@ void set_value(map_t *m, char *key, char *value)
 
 	while (m->keys[idx])
 	{
-		if (strcmp(m->keys[idx], key) == 0)
+		if (_strcmp(m->keys[idx], key) == 0)
 		{
 			free((m)->values[idx]);
 
-			(m)->values[idx] = malloc(strlen(value) + 1);
-			(m)->values[idx] = strcpy((m)->values[idx], value);
+			(m)->values[idx] = malloc(_strlen(value) + 1);
+			(m)->values[idx] = _strcpy((m)->values[idx], value);
 
 			free((m)->all[idx]);
 
-			(m)->all[idx] = malloc(strlen(key) + strlen(value) + 2);
-			(m)->all[idx] = strcpy((m)->all[idx], key);
+			(m)->all[idx] = malloc(_strlen(key) + _strlen(value) + 2);
+			(m)->all[idx] = _strcpy((m)->all[idx], key);
 			(m)->all[idx] = strcat((m)->all[idx], "=");
 			(m)->all[idx] = strcat((m)->all[idx], value);
 

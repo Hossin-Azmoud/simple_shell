@@ -65,7 +65,7 @@ void *shell_atoi(char *ascii)
 	r = malloc(sizeof(int));
 	tmp  = 0;
 	unit = 1;
-	it   = (strlen(ascii) - 1);
+	it   = (_strlen(ascii) - 1);
 	while (it >= 0)
 	{
 		if (it == 0)

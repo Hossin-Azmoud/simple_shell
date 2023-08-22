@@ -7,11 +7,21 @@
 */
 char *_strdup(char *s)
 {
-	char *s_   = malloc(_strlen(s) + 1);
-	char *ptr_;
+	char *s_, *cp_ptr, *og_ptr;
 
-	for (ptr = s; (*s); s++, s_++)
-		*s_ = *s;
+	if (s == NULL)
+		return (NULL);
 
+	s_     = (char *) malloc(_strlen(s) + 1);
+	cp_ptr = s_;
+	og_ptr = s;
+	while (*og_ptr !=  0)
+	{
+		*cp_ptr = *og_ptr;
+		og_ptr++;
+		cp_ptr++;
+	}
+
+	*cp_ptr = 0;
 	return (s_);
 }

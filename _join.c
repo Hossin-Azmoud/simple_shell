@@ -7,13 +7,13 @@
 */
 char *_join_with_path(char *path, char *file_name)
 {
-	int   sz   = (strlen(path) + strlen(file_name) + 2);
+	int   sz   = (_strlen(path) + _strlen(file_name) + 2);
 	char *full = (char *) malloc(sz);
 
 	if (full == NULL)
 		return (NULL);
 
-	full = strcpy(full, path);
+	full = _strcpy(full, path);
 	full = strcat(full, "/");
 	full = strcat(full, file_name);
 

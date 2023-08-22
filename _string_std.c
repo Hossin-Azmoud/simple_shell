@@ -1,10 +1,10 @@
 #include "_simple_shell.h"
 /**
-* terminate_incoming_str - function that terminate incoming string
-* @s: the string or the argument
+* terminate_incoming_ - function that terminate incoming string
+* @s: the ing or the argument
 * @size: the size
 */
-void terminate_incoming_str(char *s, int *size)
+void terminate_incoming_(char *s, int *size)
 {
 	if (*size >= 2)
 	{
@@ -21,10 +21,10 @@ void terminate_incoming_str(char *s, int *size)
 }
 
 /**
-* _fputs - function that put the string
-* @s: the string or the argument
+* _fputs - function that put the ing
+* @s: the ing or the argument
 * @fd: the argument
-* Return: the string
+* Return: the ing
 */
 int _fputs(char *s, int fd)
 {
@@ -34,16 +34,16 @@ int _fputs(char *s, int fd)
 		return (write(fd, s, _strlen(s)));
 }
 /**
-* _puts - function that put the string
-* @s: the string or the argument
-* Return: the string
+* _puts - function that put the ing
+* @s: the ing or the argument
+* Return: the ing
 */
 int _puts(char *s)
 {
 	return (_fputs(s, STDOUT_FILENO));
 }
 /**
-* _putchar - function that put the string
+* _putchar - function that put the ing
 * @c: the character or the argument
 * Return: the character
 */
@@ -52,15 +52,15 @@ int _putchar(char c)
 	return (write(STDOUT_FILENO, &c, 1));
 }
 /**
-* trim - function that put the string
-* @s: the string or the argument
-* Return: the string
+* trim - function that put the ing
+* @s: the ing or the argument
+* Return: the ing
 */
 int trim(char **s)
 {
 	char   *tmp  = *s;
 	size_t it  = 0;
-	int    len = strlen(tmp);
+	int    len = _strlen(tmp);
 	char   *buff = malloc(len + 1);
 
 	if (tmp == NULL || buff == NULL)

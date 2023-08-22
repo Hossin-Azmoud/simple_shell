@@ -17,8 +17,8 @@
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <ctype.h>
+#include <string.h>
 #include <assert.h>
 #include <stdbool.h>
 #include <sys/wait.h>
@@ -185,9 +185,11 @@ typedef struct meta_data_s
 } meta_data_t;
 /* string */
 char *_strdup(char *s);
+char *_strcpy(char *dest, char *src);
 int   _strcmp(char *s1, char *s2);
 int   _strlen(char *s);
 int   _strlen2d(char **array);
+char *_strcat(char *dst, char *src);
 char  *_join_with_path(char *path, char *file_name);
 void  terminate_incoming_str(char *s, int *size);
 int   trim(char **s);

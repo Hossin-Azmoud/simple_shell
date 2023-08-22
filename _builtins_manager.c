@@ -47,7 +47,7 @@ builtin_func_t
 				return (NULL);
 
 			temp_func       = (funcs + size);
-			strcpy(temp_func->name, name);
+			_strcpy(temp_func->name, name);
 			temp_func->f    = f;
 			size++;
 
