@@ -183,15 +183,17 @@ typedef struct meta_data_s
 	char *pwd;
 	char *prompt;
 } meta_data_t;
-
-char  *get_shell_header(void);
+/* string */
+char *_strdup(char *s);
 int   _strcmp(char *s1, char *s2);
 int   _strlen(char *s);
 int   _strlen2d(char **array);
+char  *_join_with_path(char *path, char *file_name);
+
+char  *get_shell_header(void);
 int   _fputs(char *s, int fd);
 int   _putchar(char c);
 int   _puts(char *s);
-char  *_join_with_path(char *path, char *file_name);
 int   _getline(char **buff, size_t *size, int fd);
 void  prompt_user(void);
 void  free_2d(char **Array);
