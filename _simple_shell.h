@@ -189,33 +189,39 @@ int   _strcmp(char *s1, char *s2);
 int   _strlen(char *s);
 int   _strlen2d(char **array);
 char  *_join_with_path(char *path, char *file_name);
+void  terminate_incoming_str(char *s, int *size);
+int   trim(char **s);
 
-char  *get_shell_header(void);
+/* stdio */
 int   _fputs(char *s, int fd);
 int   _putchar(char c);
 int   _puts(char *s);
 int   _getline(char **buff, size_t *size, int fd);
+
+/* my standard. */
+char  *get_shell_header(void);
 void  prompt_user(void);
 void  free_2d(char **Array);
 void  free_n2d(char **Array, int n);
 void  print_2d(char **Array);
-void  terminate_incoming_str(char *s, int *size);
-int   trim(char **s);
 char  **split_by_delim(char *buffer, char *delim);
 char  **parse_command(char *buff);
 char  *_getpath(void);
 char  **get_tokenized_path(void);
 void  _exec(void);
-char  *get_value(const map_t *m, char *key);
-void  set_value(map_t *m, char *key, char *value);
+void  *shell_atoi(char *ascii);
+void  handle_signal(int signal);
+int   _sig_int(int sig);
+
+/* Map */
 map_t *create_map(size_t size);
 void  distroy_map(map_t *m);
 void  append_entry(map_t *m, char *entry, char *key, char *value);
 void  map_cpy(map_t *m, char **src);
-
+char  *get_value(const map_t *m, char *key);
+void  set_value(map_t *m, char *key, char *value);
 
 /* PATH MANAGER */
-
 void path_manager(path_action_t action, char **cmd_loc, int *res);
 void find_cmd(char **cmd_loc, char **paths, int *result_);
 void init_path_manager(void);
@@ -264,10 +270,5 @@ void start_shell(void);
 void __exit_shell(void);
 void change_dir(void);
 void clear(void);
-
-/* other */
-void *shell_atoi(char *ascii);
-void handle_signal(int signal);
-int _sig_int(int sig);
 
 #endif /* SIMPLE_SHELL_H */
