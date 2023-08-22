@@ -51,7 +51,7 @@ static void _cd_internal(char *arg, int is_path)
 	char *pwd      = _get_env("PWD");
 
 	if (is_path)
-		dist = strdup(arg);
+		dist = _strdup(arg);
 	else
 	{
 		dist = _get_env(arg);
@@ -59,7 +59,7 @@ static void _cd_internal(char *arg, int is_path)
 		{
 			if (_strcmp(arg, "OLDPWD") == 0)
 			{
-				dist = strdup(pwd);
+				dist = _strdup(pwd);
 			} else
 			{
 				free(pwd);

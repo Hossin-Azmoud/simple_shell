@@ -23,8 +23,8 @@ void set_value(map_t *m, char *key, char *value)
 
 			(m)->all[idx] = malloc(_strlen(key) + _strlen(value) + 2);
 			(m)->all[idx] = _strcpy((m)->all[idx], key);
-			(m)->all[idx] = strcat((m)->all[idx], "=");
-			(m)->all[idx] = strcat((m)->all[idx], value);
+			(m)->all[idx] = _strcat((m)->all[idx], "=");
+			(m)->all[idx] = _strcat((m)->all[idx], value);
 
 			return;
 		}

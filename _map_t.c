@@ -53,12 +53,12 @@ void append_entry(map_t *m, char *entry, char *key, char *value)
 
 	} else if (!entry && key && value)
 	{
-		(m)->keys[idx]   = strdup(key);
-		(m)->values[idx] = strdup(value);
+		(m)->keys[idx]   = _strdup(key);
+		(m)->values[idx] = _strdup(value);
 		(m)->all[idx]    = malloc(_strlen(key) + _strlen(value) + 2);
 		(m)->all[idx]    = _strcpy((m)->all[idx], key);
-		(m)->all[idx]    = strcat((m)->all[idx], "=");
-		(m)->all[idx]    = strcat((m)->all[idx], value);
+		(m)->all[idx]    = _strcat((m)->all[idx], "=");
+		(m)->all[idx]    = _strcat((m)->all[idx], value);
 		(m)->size++;
 
 		return;
@@ -79,7 +79,7 @@ char *get_value(const map_t *m, char *key)
 		if (_strcmp((m)->keys[iter], key) == 0)
 		{
 			if (((m)->values[iter]))
-				return (strdup((m)->values[iter]));
+				return (_strdup((m)->values[iter]));
 			return (NULL);
 		}
 

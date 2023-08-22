@@ -14,8 +14,8 @@ char *_join_with_path(char *path, char *file_name)
 		return (NULL);
 
 	full = _strcpy(full, path);
-	full = strcat(full, "/");
-	full = strcat(full, file_name);
+	full = _strcat(full, "/");
+	full = _strcat(full, file_name);
 
 	return (full);
 }

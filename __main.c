@@ -5,7 +5,7 @@
 * @argv: the argument
 * Return: always 0.
 */
-int _main(int _, char **argv)
+int main(int _, char **argv)
 {
 	(void) _;
 	init_environment(argv[0]);
@@ -14,7 +14,7 @@ int _main(int _, char **argv)
 	return (get_status());
 }
 
-int main()
+int _main()
 {
 	char *some  = strdup("Hossin ");	
 	char *other = "azmoud!";
