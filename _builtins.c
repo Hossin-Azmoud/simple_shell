@@ -5,22 +5,32 @@
 
 void __exit_shell(void)
 {
-	int size = 0, code = (get_status());
+	int size = 0, code = (get_status()), ln = get_line_index();
 	void *code_ptr;
-	char **argv = reader(GET_TOKENS);
+	char **argv = reader(GET_TOKENS), *shell;
 
 	size = _strlen2d(argv);
 	if (size > 1)
 	{
 		code_ptr = shell_atoi(argv[1]);
+		shell = get_shell_name();
+
 		if (code_ptr == NULL)
 		{
-			fprintf(stderr, "[ERROR] invalid number given to exit `%s`\n", argv[1]);
+			fprintf(stderr, "%s: %i: exit: Illegal number: %s\n", shell, ln, argv[1]);
 			set_status(2);
 			return;
 		}
 
 		code = *(int *) code_ptr;
+		if (code < 0)
+		{
+			fprintf(stderr, "%s: %i: exit: Illegal number: %i\n", shell, ln, code);
+			set_status(2);
+			free(code_ptr);
+			return;
+		}
+
 		free(code_ptr);
 	}
 

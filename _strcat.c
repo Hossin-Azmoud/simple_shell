@@ -2,7 +2,7 @@
 
 /**
  * _strcat - function that concats 2 strings
- * @dst: destination string. 
+ * @dst: destination string.
  * @src: the src that will be concated.
  * Return: pointer to concated string.
  */

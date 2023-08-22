@@ -41,7 +41,11 @@ void *reader(reader_action_t action)
 			in->size = _getline(&(in->buff), &cap, STDIN_FILENO);
 
 			if (in->size >= 1)
+			{
 				in->size = trim(&(in->buff));
+				in->buff = exclude_comments(in->buff);
+				in->size = _strlen(in->buff);
+			}
 
 			return (&(in->size));
 		} break;

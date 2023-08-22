@@ -3,6 +3,7 @@
 /**
 * distroy_map - function distroying the map
 * @m: the argument of the map
+* Return: void
 */
 void distroy_map(map_t *m)
 {
@@ -16,7 +17,6 @@ void distroy_map(map_t *m)
  * distroy_env_ - function that release enviromnent
  * Return: void
  */
-
 void distroy_env_(void)
 {
 	env_manager(

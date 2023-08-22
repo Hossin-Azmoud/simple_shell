@@ -13,4 +13,3 @@ int main(int _, char **argv)
 	uinit_environment();
 	return (get_status());
 }
-

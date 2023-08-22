@@ -214,6 +214,7 @@ void  _exec(void);
 void  *shell_atoi(char *ascii);
 void  handle_signal(int signal);
 int   _sig_int(int sig);
+char *exclude_comments(char *buff);
 
 /* Map */
 map_t *create_map(size_t size);
