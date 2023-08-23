@@ -5,27 +5,29 @@
 * @buff: the buff that will be checked for context.
 * Return: return context if found else.. NONE
 */
-ctx_t check_context(char *buff)
+ctx_t *check_context(char *buff)
 {
 	size_t i = 0;
+	size_t ctx_idx = 0;
+	ctx_t *ctx_array = malloc(sizeof(ctx_t) * CTX_MAX);
 
 	while (buff[i])
 	{
 		switch (buff[i])
 		{
 			case ';': {
-				return (JOIN);
+				ctx_array[ctx_idx++] = JOIN;
 			} break;
 			case '&': {
 				if (buff[i + 1] == buff[i])
 				{
-					return (AND);
+					ctx_array[ctx_idx++] = AND;
 				}
 			} break;
 			case '|': {
 				if (buff[i + 1] == buff[i])
 				{
-					return (OR);
+					ctx_array[ctx_idx++] = OR;
 				}
 			}
 			default: {
@@ -34,7 +36,16 @@ ctx_t check_context(char *buff)
 
 		i++;
 	}
-	return (NONE);
+
+	if (ctx_idx == 0)
+	{
+		free(ctx_array);
+		return (NULL);
+	}
+
+	ctx_array[ctx_idx++] = END;
+	ctx_array = realloc(ctx_array, sizeof(ctx_t) * ctx_idx);
+	return (ctx_array);
 }
 /**
 * context_based_split - split using given context delimeter.
@@ -55,7 +66,7 @@ char **context_based_split(ctx_t context, char *buff)
 	if (context == AND)
 		delim = "&&";
 
-	if (context == NONE)
+	if (context == END)
 		return (NULL);
 
 	return (split_by_delim(buff,  delim));
@@ -78,7 +89,7 @@ char *ctx_str(ctx_t context)
 		case AND: {
 			return ("AND");
 		} break;
-		case NONE: {
+		case END: {
 			return ("NONE");
 		} break;
 		default: {

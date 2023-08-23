@@ -7,6 +7,7 @@
 #define SEQ_START_BYTE ('\x1b')
 #define BUILTINS_MAX_SIZE 32
 #define ENV_MAX 255
+#define CTX_MAX 200
 #define DELIM " \t\n\r"
 #define CLEAR_BYTES ("\033[2J")
 #define ROOT "/"
@@ -51,14 +52,14 @@ typedef enum shell_state_action_e
  * @AND: and which refers to '&&'
  * @OR:  or that refers to '||'
  * @JOIN: join that refers to ';'
- * @NONE: refers to no context
+ * @END: refers to the ending context.
  */
 typedef enum ctx_e
 {
 	AND,
 	JOIN,
 	OR,
-	NONE
+	END
 } ctx_t;
 
 /**
@@ -81,6 +82,7 @@ typedef enum builtins_action_e
  * @FREE:        free user input and tokenization buffer.
  * @GET_TOKENS:  get tokenized input.
  * @GET_ALL: gets the input struct.
+ * @NEXT_CMD: goto the next command.
  */
 typedef enum reader_action_e
 {
@@ -88,7 +90,8 @@ typedef enum reader_action_e
 	TOKENIZE,
 	FREE,
 	GET_TOKENS,
-	GET_ALL
+	GET_ALL,
+	NEXT_CMD
 } reader_action_t;
 
 /**
@@ -158,13 +161,13 @@ typedef struct map_s
  */
 typedef struct input_buffer_s
 {
-	char *buff;
-	char **tokens;
-	char **commands;
-	int input_size;
+	char   *buff;
+	char   **tokens;
+	char   **commands;
+	int    input_size;
 	size_t commands_sz;
 	size_t command_idx;
-	ctx_t ctx;
+	ctx_t  *ctx;
 } input_buffer_t;
 
 /**
@@ -290,7 +293,7 @@ void *reader(reader_action_t action);
 void init_environment(char *shell_);
 void uinit_environment(void);
 /* context */
-ctx_t check_context(char *buff);
+ctx_t *check_context(char *buff);
 char **context_based_split(ctx_t context, char *buff);
 char *ctx_str(ctx_t context);
 /* main */

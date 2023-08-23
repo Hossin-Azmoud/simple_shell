@@ -16,7 +16,7 @@ static input_buffer_t *alloc_input_t(void)
 	in->buff         = NULL;
 	in->tokens       = NULL;
 	in->commands     = NULL;
-	in->ctx          = NONE;
+	in->ctx          = NULL;
 	in->input_size   = 0;
 	in->commands_sz  = 0;
 	in->command_idx  = 0;
@@ -40,11 +40,11 @@ static input_buffer_t *read_command()
 
 	if (uinput->input_size >= 1)
 	{
-		uinput->input_size = trim(&(uinput->buff));
-		uinput->buff       = exclude_comments(uinput->buff);
-		uinput->input_size = _strlen(uinput->buff);
-		uinput->ctx        = check_context(uinput->buff);
-		uinput->commands   = context_based_split(uinput->ctx, uinput->buff);
+		uinput->input_size   = trim(&(uinput->buff));
+		uinput->buff         = exclude_comments(uinput->buff);
+		uinput->input_size   = _strlen(uinput->buff);
+		uinput->ctx          = check_context(uinput->buff);
+		uinput->commands     = split_by_delim(uinput->buff,  ";&&||");
 		uinput->commands_sz  = _strlen2d(uinput->commands);
 		uinput->command_idx  = 0;
 	}
@@ -64,6 +64,8 @@ static void free_input_t(input_buffer_t *uinput)
 
 	if (uinput->commands != NULL)
 		free_2d(uinput->commands);
+	if (uinput->ctx != NULL)
+		free(uinput->ctx);
 
 	free(uinput);
 }
@@ -82,22 +84,22 @@ static char **tokenize(input_buffer_t *uinput)
 
 	if (uinput->buff != NULL && (uinput->input_size) >= 1)
 	{
-		if (uinput->ctx == NONE)
+		if (uinput->ctx == NULL)
 		{
 			uinput->tokens = split_by_delim((uinput->buff), DELIM);
-		} else
+			return (uinput->tokens);
+		}
+
+		if (*(uinput->commands + uinput->command_idx) != NULL)
 		{
-			if (*(uinput->commands + uinput->command_idx) != NULL)
-			{
-				uinput->tokens = split_by_delim(
-					*(uinput->commands + uinput->command_idx),
-					DELIM
-				);
-				uinput->command_idx++;
-			}
+			uinput->tokens = split_by_delim(
+				*(uinput->commands + uinput->command_idx),
+				DELIM
+			);
+			uinput->command_idx++;
 		}
 	}
-
+	
 	return (uinput->tokens);
 }
 /**
@@ -111,6 +113,9 @@ void *reader(reader_action_t action)
 
 	switch (action)
 	{
+		case NEXT_CMD: {
+			in->command_idx++;
+		} break;
 		case GET_TOKENS: {
 			return (in->tokens);
 		} break;
@@ -127,7 +132,6 @@ void *reader(reader_action_t action)
 		case FREE: {
 			if (in != NULL)
 				free_input_t(in);
-
 			in = NULL;
 		} break;
 		default: {

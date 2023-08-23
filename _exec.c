@@ -53,38 +53,35 @@ void _exec(void)
 {
 	input_buffer_t *uinput = (input_buffer_t *) reader(GET_ALL);
 	size_t idx = 0;
+	int prev_code = 0;
 	char **argv = uinput->tokens;
 	map_t *m     = get_envp_map();
-
-	switch (uinput->ctx)
+	
+	for (; uinput->commands[idx]; idx++)
 	{
-		case NONE: {
-			_exec__internal(argv, m->all);
-		} break;
-		case JOIN: {
-			for (; uinput->commands[idx]; idx++)
-			{
-				_exec__internal(argv, m->all);
-				argv = (char **) reader(TOKENIZE);
-			}
-		} break;
-		case OR: {
-			for (; uinput->commands[idx]; idx++)
-			{
-				if (_exec__internal(argv, m->all) == 0)
-					return;
+		prev_code = _exec__internal(argv, m->all);
+		if (uinput->ctx == NULL || (uinput->ctx + idx) == NULL)
+			return;
 
-				argv = (char **) reader(TOKENIZE);
-			}
-		} break;
-		case AND: {
-			for (; uinput->commands[idx]; idx++)
-			{
-				if (_exec__internal(argv, m->all) != 0)
+		switch (uinput->ctx[idx])
+		{
+			case END: {
+				return;
+			} break;
+			case OR: {
+				while (uinput->ctx[idx] == OR && prev_code == 0)
+				{
+					argv = (char **) reader(TOKENIZE);
+					idx++;
+				}
+			} break;
+			case AND: {
+				if (prev_code != 0)
 					return;
-
-				argv = (char **) reader(TOKENIZE);
-			}
-		} break;
+			} break;
+			case JOIN: {
+			} break;
+		}
+		argv = (char **) reader(TOKENIZE);
 	}
 }
