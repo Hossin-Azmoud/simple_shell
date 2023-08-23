@@ -1,3 +1,0 @@
-ls && kk
-pwd
-pwd
