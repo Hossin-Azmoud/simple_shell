@@ -1,4 +1,6 @@
 #include "_simple_shell.h"
+#include <errno.h>
+
 /**
 * main - entry point.
 * @argc: the argument
