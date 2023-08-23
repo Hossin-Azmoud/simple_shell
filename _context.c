@@ -8,6 +8,7 @@
 ctx_t check_context(char *buff)
 {
 	size_t i = 0;
+
 	while (buff[i])
 	{
 		switch (buff[i])
@@ -27,8 +28,8 @@ ctx_t check_context(char *buff)
 					return (OR);
 				}
 			}
-
-			default: {} break;
+			default: {
+			} break;
 		}
 
 		i++;

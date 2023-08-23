@@ -52,6 +52,11 @@ static input_buffer_t *read_command()
 	return (uinput);
 }
 
+/**
+ * free_input_t - a function to free an input_buffer_t allocated space.
+ * @uinput: structure to free.
+ * Return: void
+ */
 static void free_input_t(input_buffer_t *uinput)
 {
 	free(uinput->buff);
@@ -62,7 +67,39 @@ static void free_input_t(input_buffer_t *uinput)
 
 	free(uinput);
 }
+/**
+ * tokenize - function that tokenizes the input of the function.
+ * @uinput: user input buffer.
+ * Return: tokens of the current command
+ */
+static char **tokenize(input_buffer_t *uinput)
+{
+	if (uinput->tokens != NULL)
+	{
+		free_2d(uinput->tokens);
+		uinput->tokens = NULL;
+	}
 
+	if (uinput->buff != NULL && (uinput->input_size) >= 1)
+	{
+		if (uinput->ctx == NONE)
+		{
+			uinput->tokens = split_by_delim((uinput->buff), DELIM);
+		} else
+		{
+			if (*(uinput->commands + uinput->command_idx) != NULL)
+			{
+				uinput->tokens = split_by_delim(
+					*(uinput->commands + uinput->command_idx),
+					DELIM
+				);
+				uinput->command_idx++;
+			}
+		}
+	}
+
+	return (uinput->tokens);
+}
 /**
  * reader - function that read the input
  * @action: check the argument
@@ -82,36 +119,15 @@ void *reader(reader_action_t action)
 			return (&(in->input_size));
 		} break;
 		case TOKENIZE: {
-
-			if (in->tokens != NULL)
-			{
-				free_2d(in->tokens);
-				in->tokens = NULL;
-			}
-
-			if (in->buff != NULL && (in->input_size) >= 1)
-			{
-				if (in->ctx == NONE)
-				{
-					in->tokens = split_by_delim((in->buff), DELIM);
-				} else
-				{
-					if (*(in->commands + in->command_idx) != NULL)
-					{
-						in->tokens = split_by_delim(*(in->commands + in->command_idx), DELIM);
-						in->command_idx++;
-					}
-				}
-			}
+			return (tokenize(in));
 		} break;
 		case GET_ALL: {
 			return (in);
 		} break;
 		case FREE: {
 			if (in != NULL)
-			{
 				free_input_t(in);
-			}
+
 			in = NULL;
 		} break;
 		default: {

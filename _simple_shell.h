@@ -53,7 +53,8 @@ typedef enum shell_state_action_e
  * @JOIN: join that refers to ';'
  * @NONE: refers to no context
  */
-typedef enum ctx_e {
+typedef enum ctx_e
+{
 	AND,
 	JOIN,
 	OR,
@@ -149,7 +150,11 @@ typedef struct map_s
  * struct input_buffer_s - user input storage entity
  * @buff:   buffer to store raw input from user.
  * @tokens: 2d string array to store parsed/tokenized user input.
- * @size:   size of the raw buffer.
+ * @input_size:   size of the raw buffer.
+ * @commands: commands that will be toked based on context.
+ * @ctx: command context.
+ * @command_idx: current command index
+ * @commands_sz: amount of current passed commands.
  */
 typedef struct input_buffer_s
 {

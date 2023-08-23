@@ -62,36 +62,28 @@ void _exec(void)
 			_exec__internal(argv, m->all);
 		} break;
 		case JOIN: {
-			while (uinput->commands[idx])
+			for (; uinput->commands[idx]; idx++)
 			{
 				_exec__internal(argv, m->all);
-				reader(TOKENIZE);
-				argv = (char **)reader(GET_TOKENS);
-				idx++;
+				argv = (char **) reader(TOKENIZE);
 			}
 		} break;
 		case OR: {
-			while (uinput->commands[idx])
+			for (; uinput->commands[idx]; idx++)
 			{
-				if(_exec__internal(argv, m->all) == 0)
-				{
+				if (_exec__internal(argv, m->all) == 0)
 					return;
-				}
-				reader(TOKENIZE);
-				argv = (char **)reader(GET_TOKENS);
-				idx++;
+
+				argv = (char **) reader(TOKENIZE);
 			}
 		} break;
 		case AND: {
-			while (uinput->commands[idx])
+			for (; uinput->commands[idx]; idx++)
 			{
-				if(_exec__internal(argv, m->all) != 0)
-				{
+				if (_exec__internal(argv, m->all) != 0)
 					return;
-				}
-				reader(TOKENIZE);
-				argv = (char **)reader(GET_TOKENS);
-				idx++;
+
+				argv = (char **) reader(TOKENIZE);
 			}
 		} break;
 	}
