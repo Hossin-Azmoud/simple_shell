@@ -28,18 +28,21 @@ char **check_variables(char **tokens)
 					continue;
 				}
 
+				if (*(tokens[it] + 1) == 0)
+				{
+					new[it] = _strdup(tokens[it]);
+					continue;
+				}
+
 				new[it] = _get_env(tokens[it] + 1);
 				if (!new[it])
-				{
 					new[it] = _strdup("");
-				}
 			} break;
 			default: {
 				new[it] = _strdup(tokens[it]);
 			} break;
 		}
 	}
-
 	free_2d(tokens);
 	new[it] = NULL;
 	return (new);

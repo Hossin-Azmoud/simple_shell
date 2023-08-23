@@ -38,7 +38,6 @@ static input_buffer_t *read_command(int fd)
 
 	uinput = alloc_input_t();
 	uinput->input_size = _getline(&(uinput->buff), &cap, fd);
-
 	if (uinput->input_size >= 1)
 	{
 		uinput->input_size   = trim(&(uinput->buff));

@@ -22,6 +22,7 @@ int _getline(char **buff, size_t *size, int fd)
 			*buff = realloc(*buff, *size);
 		}
 		nread = read(fd, &c, 1);
+
 		if (nread <= 0)
 			break;
 		switch (c)
@@ -44,5 +45,6 @@ int _getline(char **buff, size_t *size, int fd)
 		return (-1);
 	if (_sig_int(-1) == SIGINT)
 		return (INTRPT_CODE);
+	printf("buff: %s\n", *buff);
 	return (it);
 }
