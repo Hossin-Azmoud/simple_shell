@@ -47,6 +47,20 @@ typedef enum shell_state_action_e
 } shell_state_action_t;
 
 /**
+ * enum ctx_e - shell commmand context.
+ * @AND: and which refers to '&&'
+ * @OR:  or that refers to '||'
+ * @JOIN: join that refers to ';'
+ * @NONE: refers to no context
+ */
+typedef enum ctx_e {
+	AND,
+	JOIN,
+	OR,
+	NONE
+} ctx_t;
+
+/**
  * enum builtins_action_e - builtin manager actions.
  * @GET_BUILTN:  get a builtin function by name.
  * @INIT_BUILTN: initialise builtin functions buffer.
@@ -61,17 +75,19 @@ typedef enum builtins_action_e
 
 /**
  * enum reader_action_e - possible reader actions (for user input.)
- * @READ:      Read user input.
- * @TOKENIZE:  organize and parse user input.
- * @FREE:      free user input and tokenization buffer.
- * @GET_TOKENS: get tokenized input.
+ * @READ:        Read user input.
+ * @TOKENIZE:    organize and parse user input.
+ * @FREE:        free user input and tokenization buffer.
+ * @GET_TOKENS:  get tokenized input.
+ * @GET_ALL: gets the input struct.
  */
 typedef enum reader_action_e
 {
 	READ,
 	TOKENIZE,
 	FREE,
-	GET_TOKENS
+	GET_TOKENS,
+	GET_ALL
 } reader_action_t;
 
 /**
@@ -139,7 +155,11 @@ typedef struct input_buffer_s
 {
 	char *buff;
 	char **tokens;
-	int size;
+	char **commands;
+	int input_size;
+	size_t commands_sz;
+	size_t command_idx;
+	ctx_t ctx;
 } input_buffer_t;
 
 /**
@@ -161,7 +181,6 @@ typedef struct builtin_func_s
  * @c_line_toks:   current tokens
  * @shell_name:    current shell name.
  */
-
 typedef struct shell_state_s
 {
 	int latest_status;
@@ -265,7 +284,10 @@ void *reader(reader_action_t action);
 /* init and deinit. */
 void init_environment(char *shell_);
 void uinit_environment(void);
-
+/* context */
+ctx_t check_context(char *buff);
+char **context_based_split(ctx_t context, char *buff);
+char *ctx_str(ctx_t context);
 /* main */
 void start_shell(void);
 
