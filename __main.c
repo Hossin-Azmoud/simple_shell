@@ -20,19 +20,20 @@ int main(int argc, char **argv)
 
 		if (fd == -1)
 		{
+			uinit_environment();
 			if (errno == EACCES)
-			{
-				uinit_environment();
 				return (126);
+
+			if (errno == ENOENT)
+			{
+				fprintf(stderr,
+					"%s: 0: cannot open %s: No such file\n",
+					argv[0],
+					file_name
+				);
+				return (127);
 			}
 
-			fprintf(stderr,
-				"%s: 0: cannot open %s: No such file\n",
-				argv[0],
-				file_name
-			);
-
-			uinit_environment();
 			return (1);
 		}
 	}
