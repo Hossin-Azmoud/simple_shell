@@ -47,6 +47,19 @@ void clear(void)
 	_puts("\033[0;0H\n"); /* Go to the starting col and row of the term. */
 	set_status(0);
 }
+/**
+ * check_errno - function to log cd error.
+ * @dst_failure: path in which failed to cd to.
+ * Return: void
+ */
+static void check_errno(char *dst_failure)
+{
+	/*fmt! ./hsh: 1: cd: can't cd to /root*/
+	char *shell = get_shell_name();
+	int idx = get_line_index();
+
+	fprintf(stderr, "%s: %i: cd: can\'t cd to %s\n", shell, idx, dst_failure);
+}
 
 /**
  * _cd_internal - core function that changes directory.
@@ -80,7 +93,7 @@ static void _cd_internal(char *arg, int is_path)
 	}
 	if (chdir(dist) == -1)
 	{
-		perror("cd");
+		check_errno(dist);
 	} else
 	{
 		abs_path = getcwd(abs_path, PATH_MAX + 1);
