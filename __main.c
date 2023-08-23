@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 		{
 			uinit_environment();
 			if (errno == EACCES)
-				return (126);
+				exit(126);
 
 			if (errno == ENOENT)
 			{
@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 					argv[0],
 					file_name
 				);
-				return (127);
+				exit(127);
 			}
 
 			return (1);
