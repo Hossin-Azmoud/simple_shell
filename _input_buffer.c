@@ -99,7 +99,7 @@ static char **tokenize(input_buffer_t *uinput)
 			uinput->command_idx++;
 		}
 	}
-	
+
 	return (uinput->tokens);
 }
 /**

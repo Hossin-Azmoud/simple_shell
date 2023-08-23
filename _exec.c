@@ -56,7 +56,7 @@ void _exec(void)
 	int prev_code = 0;
 	char **argv = uinput->tokens;
 	map_t *m     = get_envp_map();
-	
+
 	for (; uinput->commands[idx]; idx++)
 	{
 		prev_code = _exec__internal(argv, m->all);
