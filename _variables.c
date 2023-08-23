@@ -21,13 +21,11 @@ char **check_variables(char **tokens)
 					new[it] = __itoa((int)getpid());
 					continue;
 				}
-
 				if (tokens[it][1] == '?')
 				{
 					new[it] = __itoa(get_status());
 					continue;
 				}
-
 				if (*(tokens[it] + 1) == 0)
 				{
 					new[it] = _strdup(tokens[it]);
