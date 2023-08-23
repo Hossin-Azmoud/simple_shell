@@ -1,5 +1,10 @@
 #include "_simple_shell.h"
 
+/**
+* check_variables - func that replaces variables with their values.
+* @tokens: buff that holds command tokens.
+* Return: new token array.
+*/
 char **check_variables(char **tokens)
 {
 	size_t len = (_strlen2d(tokens) + 1);
@@ -22,7 +27,7 @@ char **check_variables(char **tokens)
 					new[it] = __itoa(get_status());
 					continue;
 				}
-				
+
 				new[it] = _get_env(tokens[it] + 1);
 				if (!new[it])
 				{

@@ -93,14 +93,18 @@ void *shell_atoi(char *ascii)
 	*r = tmp;
 	return (r);
 }
-
+/**
+ * __itoa - function that converts int to asci.
+ * @n: num to convert.
+ * Return: an allocated buffer that represents n in ascii.
+ */
 char *__itoa(int n)
 {
 	char buff[20];
 	size_t signed_ = 0;
 	size_t idx    = 20 - 1;
-	buff[idx--]   = '\0';
 
+	buff[idx--]   = '\0';
 	if (n < 0)
 	{
 		signed_ = 1;
@@ -108,7 +112,7 @@ char *__itoa(int n)
 	}
 	if (n == 0)
 	{
-		return _strdup("0\0");
+		return (_strdup("0\0"));
 	}
 	while (n > 0)
 	{
@@ -119,8 +123,9 @@ char *__itoa(int n)
 	if (signed_)
 	{
 		buff[idx] = '-';
-	} else {
+	} else
+	{
 		idx++;
 	}
-	return _strdup(buff + idx);
+	return (_strdup(buff + idx));
 }
