@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 			);
 
 			uinit_environment();
-			return (2);
+			return (1);
 		}
 	}
 
