@@ -23,6 +23,7 @@ int main(int argc, char **argv)
 				argv[0],
 				file_name
 			);
+
 			uinit_environment();
 			return (2);
 		}
@@ -31,5 +32,7 @@ int main(int argc, char **argv)
 	reader(SET_FD, fd);
 	start_shell();
 	uinit_environment();
+	if (fd != STDIN_FILENO)
+		close(fd);
 	return (get_status());
 }
