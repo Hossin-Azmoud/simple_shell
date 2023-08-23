@@ -9,8 +9,8 @@
 int _getline(char **buff, size_t *size, int fd)
 {
 	int consume = 1, nread = 0;
-	size_t it = 0, j  = 0;
-	uint8_t c[16];
+	size_t it = 0;
+	char c;
 
 	*size = 16;
 	*buff = malloc(*size);
@@ -21,26 +21,23 @@ int _getline(char **buff, size_t *size, int fd)
 			*size *= 2;
 			*buff = realloc(*buff, *size);
 		}
-		nread = read(fd, &c, 2);
+		nread = read(fd, &c, 1);
 		if (nread <= 0)
 			break;
-		for (j = 0; j < (size_t)nread; ++j)
+		switch (c)
 		{
-			switch ((char)c[j])
-			{
-				case '\r':
-				case '\n': {
-					(*buff)[it] = 0;
-					consume = 0;
-				} break;
-				case EOF: {
-					return (-1);
-				} break;
-				default: {
-					(*buff)[it] = (char)c[j];
-					it++;
-				} break;
-			}
+			case '\r':
+			case '\n': {
+				(*buff)[it] = 0;
+				consume = 0;
+			} break;
+			case EOF: {
+				return (-1);
+			} break;
+			default: {
+				(*buff)[it] = c;
+				it++;
+			} break;
 		}
 	}
 	if (it == 0 && nread == 0)
