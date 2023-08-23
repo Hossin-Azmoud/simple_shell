@@ -18,6 +18,12 @@ int main(int argc, char **argv)
 
 		if (fd == -1)
 		{
+			if (errno == EACCES)
+			{
+				uinit_environment();
+				return (126);
+			}
+
 			fprintf(stderr,
 				"%s: 0: cannot open %s: No such file\n",
 				argv[0],
