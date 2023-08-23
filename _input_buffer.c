@@ -87,10 +87,8 @@ static char **tokenize(input_buffer_t *uinput)
 		if (uinput->ctx == NULL)
 		{
 			uinput->tokens = split_by_delim((uinput->buff), DELIM);
-			return (uinput->tokens);
 		}
-
-		if (*(uinput->commands + uinput->command_idx) != NULL)
+		else if (*(uinput->commands + uinput->command_idx) != NULL)
 		{
 			uinput->tokens = split_by_delim(
 				*(uinput->commands + uinput->command_idx),
@@ -100,8 +98,10 @@ static char **tokenize(input_buffer_t *uinput)
 		}
 	}
 
+	uinput->tokens = check_variables(uinput->tokens);
 	return (uinput->tokens);
 }
+
 /**
  * reader - function that read the input
  * @action: check the argument

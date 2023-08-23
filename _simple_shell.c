@@ -93,3 +93,34 @@ void *shell_atoi(char *ascii)
 	*r = tmp;
 	return (r);
 }
+
+char *__itoa(int n)
+{
+	char buff[20];
+	size_t signed_ = 0;
+	size_t idx    = 20 - 1;
+	buff[idx--]   = '\0';
+
+	if (n < 0)
+	{
+		signed_ = 1;
+		n = -n;
+	}
+	if (n == 0)
+	{
+		return _strdup("0\0");
+	}
+	while (n > 0)
+	{
+		buff[idx--]	= n % 10 + '0';
+		n /= 10;
+	}
+
+	if (signed_)
+	{
+		buff[idx] = '-';
+	} else {
+		idx++;
+	}
+	return _strdup(buff + idx);
+}

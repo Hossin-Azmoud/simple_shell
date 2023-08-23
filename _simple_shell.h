@@ -228,6 +228,7 @@ int   _puts(char *s);
 int   _getline(char **buff, size_t *size, int fd);
 
 /* my standard. */
+char *__itoa(int n);
 char  *get_shell_header(void);
 void  prompt_user(void);
 void  free_2d(char **Array);
@@ -242,6 +243,7 @@ void  *shell_atoi(char *ascii);
 void  handle_signal(int signal);
 int   _sig_int(int sig);
 char *exclude_comments(char *buff);
+char **check_variables(char **tokens);
 
 /* Map */
 map_t *create_map(size_t size);
