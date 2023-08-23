@@ -60,5 +60,5 @@ void uinit_environment(void)
 {
 	distroy_path();
 	distroy_env_();
-	reader(FREE);
+	reader(FREE, 0);
 }

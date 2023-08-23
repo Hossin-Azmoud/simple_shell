@@ -11,7 +11,7 @@ char **check_variables(char **tokens)
 	size_t it  = 0;
 	char **new = malloc(len * sizeof(char *));
 
-	for (; it < len && (tokens[it] != NULL); ++it)
+	for (; it < (len - 1) && (tokens[it] != NULL); ++it)
 	{
 		switch (tokens[it][0])
 		{

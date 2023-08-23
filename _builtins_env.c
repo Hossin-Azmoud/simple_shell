@@ -6,7 +6,7 @@
 void set__env(void)
 {
 	/* setenv VARIABLE VALUE */
-	char **args = reader(GET_TOKENS);
+	char **args = reader(GET_TOKENS, 0);
 	int  count  = _strlen2d(args);
 
 	if (count >= 3)
@@ -24,7 +24,7 @@ void set__env(void)
 */
 void unset__env(void)
 {
-	char **args = reader(GET_TOKENS);
+	char **args = reader(GET_TOKENS, 0);
 	int  count  = _strlen2d(args);
 	/* unsetenv VARIABLE */
 

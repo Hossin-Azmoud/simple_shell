@@ -27,7 +27,7 @@ static int _exec__internal(char **argv, char **env)
 			if (code == -1)
 			{
 				perror("[ERROR]");
-				reader(FREE);
+				reader(FREE, 0);
 				distroy_path();
 				distroy_env_();
 				exit(1);
@@ -51,7 +51,7 @@ static int _exec__internal(char **argv, char **env)
  */
 void _exec(void)
 {
-	input_buffer_t *uinput = (input_buffer_t *) reader(GET_ALL);
+	input_buffer_t *uinput = (input_buffer_t *) reader(GET_ALL, 0);
 	size_t idx = 0;
 	int prev_code = 0;
 	char **argv = uinput->tokens;
@@ -71,7 +71,7 @@ void _exec(void)
 			case OR: {
 				while (uinput->ctx[idx] == OR && prev_code == 0)
 				{
-					argv = (char **) reader(TOKENIZE);
+					argv = (char **) reader(TOKENIZE, 0);
 					idx++;
 				}
 			} break;
@@ -82,6 +82,6 @@ void _exec(void)
 			case JOIN: {
 			} break;
 		}
-		argv = (char **) reader(TOKENIZE);
+		argv = (char **) reader(TOKENIZE, 0);
 	}
 }

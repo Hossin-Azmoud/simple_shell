@@ -7,7 +7,7 @@ void __exit_shell(void)
 {
 	int size = 0, code = (get_status()), ln = get_line_index();
 	void *code_ptr;
-	char **argv = reader(GET_TOKENS), *shell;
+	char **argv = reader(GET_TOKENS, 0), *shell;
 
 	size = _strlen2d(argv);
 	if (size > 1)
@@ -115,7 +115,7 @@ static void _cd_internal(char *arg, int is_path)
  */
 void change_dir(void)
 {
-	char **args = reader(GET_TOKENS);
+	char **args = reader(GET_TOKENS, 0);
 	int  count  = _strlen2d(args);
 	char *dist  = NULL;
 

@@ -25,11 +25,11 @@ void start_shell(void)
 	int nread = 0;
 
 	do {
-		nread = *((int *)reader(READ));
+		nread = *((int *)reader(READ, 0));
 
 		if (nread <= 0)
 		{
-			reader(FREE);
+			reader(FREE, 0);
 			if (nread == 1)
 			{
 				inc_line_index();
@@ -42,11 +42,11 @@ void start_shell(void)
 
 		if (nread > 0)
 		{
-			reader(TOKENIZE);
+			reader(TOKENIZE, 0);
 			_exec();
 		}
 
-		reader(FREE);
+		reader(FREE, 0);
 		inc_line_index();
 	} while (nread >= 0);
 }

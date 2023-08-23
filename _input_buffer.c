@@ -25,18 +25,19 @@ static input_buffer_t *alloc_input_t(void)
 }
 /**
  * read_command - function to read and prepare a command/set of commands.
+ * @fd: file to read from.
  * Return: pointer to input_buffer_t struct.
  */
-static input_buffer_t *read_command()
+static input_buffer_t *read_command(int fd)
 {
 	size_t cap;
 	input_buffer_t *uinput = NULL;
 
-	if (isatty(STDIN_FILENO) == 1)
+	if (isatty(fd) == 1)
 		prompt_user();
 
 	uinput = alloc_input_t();
-	uinput->input_size = _getline(&(uinput->buff), &cap, STDIN_FILENO);
+	uinput->input_size = _getline(&(uinput->buff), &cap, fd);
 
 	if (uinput->input_size >= 1)
 	{
@@ -104,15 +105,21 @@ static char **tokenize(input_buffer_t *uinput)
 
 /**
  * reader - function that read the input
- * @action: check the argument
+ * @action: the action that the reader will do.
+ * @fd_:    the fd to the file that will be consumed.
  * Return: to the condition
  */
-void *reader(reader_action_t action)
+void *reader(reader_action_t action, int fd_)
 {
 	static input_buffer_t *in = { 0 };
+	static int fd = STDIN_FILENO;
 
 	switch (action)
 	{
+		case SET_FD: {
+			fd = fd_;
+		} break;
+
 		case NEXT_CMD: {
 			in->command_idx++;
 		} break;
@@ -120,7 +127,7 @@ void *reader(reader_action_t action)
 			return (in->tokens);
 		} break;
 		case READ: {
-			in = read_command();
+			in = read_command(fd);
 			return (&(in->input_size));
 		} break;
 		case TOKENIZE: {

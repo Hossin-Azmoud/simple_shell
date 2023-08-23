@@ -83,6 +83,7 @@ typedef enum builtins_action_e
  * @GET_TOKENS:  get tokenized input.
  * @GET_ALL: gets the input struct.
  * @NEXT_CMD: goto the next command.
+ * @SET_FD:   sets the fd
  */
 typedef enum reader_action_e
 {
@@ -91,7 +92,8 @@ typedef enum reader_action_e
 	FREE,
 	GET_TOKENS,
 	GET_ALL,
-	NEXT_CMD
+	NEXT_CMD,
+	SET_FD
 } reader_action_t;
 
 /**
@@ -289,7 +291,7 @@ void set_builtin(char *name, void (*f)(void));
 builtin_func_t *get_builtin(char *name);
 
 /* input managing. */
-void *reader(reader_action_t action);
+void *reader(reader_action_t action, int fd_);
 
 /* init and deinit. */
 void init_environment(char *shell_);
