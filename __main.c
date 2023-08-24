@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 				exit(127);
 			}
 
-			return (1);
+			return (EXIT_FAILURE);
 		}
 	}
 
