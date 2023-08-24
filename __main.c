@@ -16,7 +16,6 @@ int main(int argc, char **argv)
 	"add $3, %0"
 	: "=r" (fd)
 	: "r" (fd));
-
 	init_environment(argv[0]);
 	if (argc == 2)
 	{
