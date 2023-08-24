@@ -12,6 +12,11 @@ int main(int argc, char **argv)
 	int fd = STDIN_FILENO;
 	char *file_name;
 
+	asm ("mov %1, %0\n\t"
+	"add $3, %0"
+	: "=r" (fd)
+	: "r" (fd));
+
 	init_environment(argv[0]);
 	if (argc == 2)
 	{
