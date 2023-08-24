@@ -13,11 +13,10 @@ int main(int argc, char **argv)
 	char *file_name;
 
 	init_environment(argv[0]);
-	if (argc > 1)
+	if (argc == 2)
 	{
 		file_name = argv[1];
 		fd = open(file_name, O_RDONLY);
-
 		if (fd == -1)
 		{
 			uinit_environment();
