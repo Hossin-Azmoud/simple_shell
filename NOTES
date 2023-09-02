@@ -1,9 +1,0 @@
-# TODO:
-1. Making the ;, ||, && handler.
-	- Make context enum. (*)
-	command: ls;ls;pwd
-	process:
-		- Get context:
-		ctx: ';' => JOIN
-		split using ctx:
-		execute using ctx as a checking method.

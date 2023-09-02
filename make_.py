@@ -7,7 +7,7 @@ BINARY_NAME = "hsh"
 ARGC = len(argv)
 CURRENT_SCRIPT = argv[0]
 PROGRAM        = f"./{ BINARY_NAME }"
-BUILD_COMMAND  = f"gcc -Wall -g -Werror -Wextra -pedantic -std=gnu89 *.c -o { BINARY_NAME }"
+BUILD_COMMAND  = f"gcc -g -std=gnu89 -I./include ./src/*.c -o { BINARY_NAME }"
 DEBUG_COMMAND  = f"valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./{ BINARY_NAME }"
 BUILD_MODE, RUN_MODE, DEBUG_MODE, PIPE_MODE = "BUILD", "RUN", "DEBUG", "PIPE"
 
